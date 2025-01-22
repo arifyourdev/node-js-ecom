@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="mt-5 flex flex-col gap-5" id="inputContainer">
+        <div class="flex gap-5 input-row">
+            <div class="sm:w-[50%]">
+                <div>
+                    <label class="font-[600]">Size</label>
+                    <input type="text" name="size[]"
+                        class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                        required>
+                </div>
+            </div>
+            <div class="sm:w-[50%]">
+                <div>
+                    <label class="font-[600]">Quantity</label>
+                    <input type="text" name="quantity[]"
+                        class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                        required>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-[20px] font-[600]">Wear Fits</h3>
+            <div class="flex gap-5 input-row" id="inputFilContainer">
+                <div class="sm:w-[48%]">
+                    <div>
+                        <label class="font-[600]">Fit Name</label>
+                        <input type="text" name="fit_name[]"
+                            class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                            required>
+                    </div>
+                </div>
+                <div class="sm:w-[48%]">
+                    <div>
+                        <label class="font-[600]">Quantity</label>
+                        <input type="text" name="f_quantity[]"
+                            class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                            required>
+                    </div>
+                </div>
+                <div class="sm:w-[4%]">
+                    <div class="mt-8">
+                        <button type="button"
+                            class="bg-red-500 p-2 px-5 text-white rounded-[10px] w-[100%] add-fit-row">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2">
+            <div class="sm:w-[5%]">
+                <div class="mt-8">
+                    <button type="button"
+                        class="bg-red-500 p-2 px-5 text-white rounded-[10px] w-[100%] add-row">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputContainer = document.getElementById('inputContainer');
+            inputContainer.addEventListener('click', function (e) {
+                if (e.target.classList.contains('add-row')) {
+                    e.preventDefault();
+
+                    // Create a new input row
+                    const newRow = document.createElement('div');
+                    newRow.classList.add('input-row');
+                     newRow.innerHTML = `
+                     <div class="flex gap-5">
+                         <div class="sm:w-[45%]">
+                        <div>
+                            <label class="font-[600]">Size</label>
+                            <input type="text" name="size[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                        </div>
+                    </div>
+                    <div class="sm:w-[45%]">
+                        <div>
+                            <label class="font-[600]">Quantity</label>
+                            <input type="text" name="quantity[]" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
+                        </div>
+                    </div>
+                    <div class="sm:w-[10%]">
+                        <div class="mt-8">
+                            <button type="button" class="bg-green-500 p-2 px-5 text-white rounded-[10px] w-[100%] remove-row">Remove</button>
+                        </div>
+                    </div>
+                        </div>
+
+                      <div class="flex gap-5 input-row" id="inputFilContainer">
+                        <div class="sm:w-[48%]">
+                            <div>
+                                <label class="font-[600]">Fit Name</label>
+                                <input type="text" name="fit_name[]"
+                                    class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="sm:w-[48%]">
+                            <div>
+                                <label class="font-[600]">Quantity</label>
+                                <input type="text" name="f_quantity[]"
+                                    class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="sm:w-[4%]">
+                            <div class="mt-8">
+                                <button type="button"
+                                    class="bg-red-500 p-2 px-5 text-white rounded-[10px] w-[100%] add-fit-row">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                    // Append the new row to the container
+                    inputContainer.appendChild(newRow);
+                }
+
+                if (e.target.classList.contains('remove-row')) {
+                    e.preventDefault();
+                    const row = e.target.closest('.input-row');
+                    inputContainer.removeChild(row);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
