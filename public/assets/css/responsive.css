@@ -1283,6 +1283,7 @@
         padding: 11px 15px;
         color: var(--blackColor);
         border-bottom: 1px solid #eee;
+        margin: 1px auto;
     }
     .alfa-menu-lis:hover .dropdown-menu-wrappers{
         display: block;

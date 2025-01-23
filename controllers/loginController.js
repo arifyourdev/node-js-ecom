@@ -6,6 +6,8 @@ import ejs from "ejs";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { getAllCategory } from "../services/admin/catService.js";
+import { getCartData } from "../services/cartService.js";
+import { getWishlistData } from "../services/wishlistService.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -289,8 +291,10 @@ export const disProfile = async (req,res) =>{
             "SELECT * FROM alfa_users WHERE id = ?",
             [userId]
           );
-          const catData = await getAllCategory()
-          return res.render('my-profile', { user: userDetails[0], catData });
+          const catData = await getAllCategory();
+            const {cartData,cartCount } = await getCartData(req);
+            const {whislistData, wishlistCount} = await getWishlistData(req)
+          return res.render('my-profile', { user: userDetails[0], catData,cartData,cartCount,whislistData, wishlistCount });
         }
     }catch(e){
         console.log(e)
