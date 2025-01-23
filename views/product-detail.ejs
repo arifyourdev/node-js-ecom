@@ -18,7 +18,7 @@
       <div class="inner"></div>
     </div>
   </div>
-  
+
   <div class="comman-message">
     <div class="message-alert">
       <h6 class="showss" id="productAddedInCart"></h6>
@@ -36,11 +36,11 @@
                   <div class="col-md-2 paddingleft">
                     <div class="image-grid-wrapper">
                       <div class="images-grids">
-                    <% proImages.forEach((p_image,index) => { %>     
-                        <div class="image-item" data-index="<%= index+1 %>">
-                          <img src="<%= p_image.p_images %>" class="d-img" alt="">
-                        </div>
-                    <% }) %>     
+                        <% proImages.forEach((p_image,index)=> { %>
+                          <div class="image-item" data-index="<%= index+1 %>">
+                            <img src="<%= p_image.p_images %>" class="d-img" alt="">
+                          </div>
+                          <% }) %>
                       </div>
                     </div>
                   </div>
@@ -50,20 +50,18 @@
                         <% if (proImages.length> 0) { %>
                           <% proImages.forEach(function(p_image, index) { %>
                             <div class="d-item" data-index="<%= index %>">
-                              <img src="<%= p_image.p_images %>"
-                                data-zoom-image="<%= p_image.p_images %>" class="pd-img" alt="" />
+                              <img src="<%= p_image.p_images %>" data-zoom-image="<%= p_image.p_images %>"
+                                class="pd-img" alt="" />
                             </div>
                             <% }); %>
                               <% } else { %>
                                 <div class="d-item" data-index="0">
-                                  <img src=".<%= p_image.p_images %>"
-                                    data-zoom-image=".<%= p_image.p_images %>" alt="" />
+                                  <img src=".<%= p_image.p_images %>" data-zoom-image=".<%= p_image.p_images %>"
+                                    alt="" />
                                 </div>
                                 <% } %>
                       </div>
-                     
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -83,7 +81,9 @@
                         <div class="product-feat-point">
                           <h6 class="feat-sku">SKU</h6>
                           <span>:</span>
-                          <h6>  <%= proDetailData.sku %></h6>
+                          <h6>
+                            <%= proDetailData.sku %>
+                          </h6>
                         </div>
                       </li>
                       <li>
@@ -91,7 +91,7 @@
                           <h6 class="feat-sku">Category</h6>
                           <span>:</span>
                           <h6>
-                             
+
                           </h6>
                         </div>
                       </li>
@@ -110,7 +110,8 @@
                     </div>
                     <div class="product--price">
                       <h5>
-                        <span class="final-prices fn-price">£<%= proDetailData.p_main_price %> </span><span class="mrp-price prod-dd">
+                        <span class="final-prices fn-price">£<%= proDetailData.p_main_price %> </span><span
+                          class="mrp-price prod-dd">
                           £89.95</span>
 
                       </h5>
@@ -138,69 +139,67 @@
 
                     </ul>
                   </div>
-        
-                    <div class="product-size-list">
-                      <div class="pro--text">
-                        <h6 class="size-selection">Select Size</h6>
-                      </div>
-                      <ul class="flex gap-4">
-                        <% sizes.forEach(size => { %>    
-                            <li class="relative">
-                                <button 
-                                    class="size-button 
+
+                  <div class="product-size-list">
+                    <div class="pro--text">
+                      <h6 class="size-selection">Select Size</h6>
+                    </div>
+                    <ul class="flex gap-4">
+                      <% sizes.forEach(size=> { %>
+                        <li class="relative">
+                          <button class="size-button 
                                     <% if (size.quantity === 0) { %> size-disabled <% } else { %> bg-gray-100 <% } %>"
-                                    data-size="<%= size.size %>" 
-                                    data-quantity="<%= size.quantity %>"
-                                    data-selected="false"
-                                    <% if (size.quantity === 0) { %> disabled <% } %>
-                                    <% if (size.quantity < 5) { %>   <%= size.quantity %> items available" <% } %>
+                            data-size="<%= size.size %>" data-quantity="<%= size.quantity %>" data-selected="false" <%
+                            if (size.quantity===0) { %> disabled <% } %>
+                              <% if (size.quantity < 5) { %>
+                                <%= size.quantity %> items available" <% } %>
                                     >
                                     <%= size.size %>
-                                </button>
-                                <% if (size.quantity > 0 && size.quantity < 5) { %>
-                                    <div class="tooltip hidden absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-gray-800 text-white text-sm rounded opacity-0 transition-opacity duration-300">
-                                        Hurry up! Only <%= size.quantity %> items left
-                                    </div>
-                                <% } %>
-                            </li>
+                          </button>
+                          <% if (size.quantity> 0 && size.quantity < 5) { %>
+                              <div
+                                class="tooltip hidden absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-gray-800 text-white text-sm rounded opacity-0 transition-opacity duration-300">
+                                Hurry up! Only <%= size.quantity %> items left
+                              </div>
+                              <% } %>
+                        </li>
                         <% }); %>
                     </ul>
-                      <input type="hidden" id="selected-size" name="selected_size" value="">
-                    </div>
- 
-                    <div class="product--button-wrapper">
-                      <div class="cart-quantity-wrapper">
-                        <div class="left-input">
-                          <span class="decrement"><i class="fa-solid fa-minus"></i></span>
-                        </div>
-                        <div class="cart-quantity">
-                          <input type="text" name="product_quantity" value="1" class="cart-value">
-                        </div>
-                        <div class="right-input">
-                          <span class="increment"><i class="fa-solid fa-plus"></i></span>
-                        </div>
+                    <input type="hidden" id="selected-size" name="selected_size" value="">
+                  </div>
+
+                  <div class="product--button-wrapper">
+                    <div class="cart-quantity-wrapper">
+                      <div class="left-input">
+                        <span class="decrement"><i class="fa-solid fa-minus"></i></span>
                       </div>
-
-                      <div class="pro-btn-flex">
-                        <button type="button" class="cart-btn add-to-cart" id="addToCart"
-                          >
-                          <span><i class="fa-solid fa-cart-shopping"></i></span>
-                          Add to Cart
-                        </button>
-
-                        <button type="button" class="cart-btn buy-now" data-action="buyNow" data-url="/add-to-wishlist">
-                          Add to Wishlist
-                        </button>
-
+                      <div class="cart-quantity">
+                        <input type="text" name="product_quantity" value="1" class="cart-value">
+                      </div>
+                      <div class="right-input">
+                        <span class="increment"><i class="fa-solid fa-plus"></i></span>
                       </div>
                     </div>
 
-                    <input type="hidden" name="product_id" value="<%= proDetailData.id %> ">
-                    <input type="hidden" name="product_name" value="<%= proDetailData.p_name %> ">
-                    <input type="hidden" name="product_price" value="<%= proDetailData.p_main_price %> ">
-                    <input type="hidden" name="quantity" value="1">
-                    <input type="hidden" name="product_image" value="<%= proDetailData.p_image %>">
-                    
+                    <div class="pro-btn-flex">
+                      <button type="button" class="cart-btn add-to-cart" id="addToCart">
+                        <span><i class="fa-solid fa-cart-shopping"></i></span>
+                        Add to Cart
+                      </button>
+
+                      <button type="button" class="cart-btn buy-now" id="addToWishList">
+                        Add to Wishlist
+                      </button>
+
+                    </div>
+                  </div>
+
+                  <input type="hidden" name="product_id" value="<%= proDetailData.id %> ">
+                  <input type="hidden" name="product_name" value="<%= proDetailData.p_name %> ">
+                  <input type="hidden" name="product_price" value="<%= proDetailData.p_main_price %> ">
+                  <input type="hidden" name="quantity" value="1">
+                  <input type="hidden" name="product_image" value="<%= proDetailData.p_image %>">
+
                 </div>
               </div>
             </div>
@@ -351,1446 +350,65 @@
                     <!-- Display individual reviews -->
 
 
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- End -->
-
           <section class="mt-80 mb-60">
             <div class="custom-container">
               <div class="alfa-bestsellerl">
                 <div class="alfa-title">
                   <h3>You may also like</h3>
                 </div>
-                <div id="bestseller-carousel" class="bestseller-wrapper owl-carousel comman-nav owl-loaded owl-drag">
- 
-                  <div class="owl-stage-outer">
-                    <div class="owl-stage"
-                      style="transform: translate3d(-2164px, 0px, 0px); transition: all; width: 8656px;">
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729850769327.png" class="pro-img" alt="">
+                <div id="bestseller-carousel" class="bestseller-wrapper owl-carousel comman-nav">
+                  <% bestSellerData.forEach(product=> { %>
+                    <div class="product-item product-item-2">
+                      <a href="/product-detail/<%= product.p_url %>/<%= product.id %>">
+                        <div class="produt-wrap">
+                          <img src="<%= product.p_image %>" class="pro-img" alt="">
+                        </div>
+                        <div class="product-details">
+                          <div class="product-nameprice">
+                            <h6 style="color: #000;">
+                              <%= product.p_name %>
+                            </h6>
+                            <div class="product-price">
+                              <!-- <span class="final-price">£<%= (product.product_price * (1-product.discount_on_product /
+                                  100)).toFixed(2) %></span> -->
+                              <span class="final-price">£<%= product.p_main_price %></span>
+                              <span class="discount-text"> </span>
                             </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                                </a><a class="add-to-favorites" data-product-id="180">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
+                            <div class="product-rating d-none">
+                              <ul>
+                                <li>
+                                  <img src="assets/images/star.png" class="star-icon" alt="">
+                                  <img src="assets/images/star.png" class="star-icon" alt="">
+                                  <img src="assets/images/star.png" class="star-icon" alt="">
+                                  <img src="assets/images/star.png" class="star-icon" alt="">
+                                  <img src="assets/images/star.png" class="star-icon" alt="">
+                                </li>
+                              </ul>
                             </div>
                           </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                            <div class="produt-wrap">
-                              <img src="../product_images/navyfiletwil.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£90.00</span>
-                                  <span class="mrp-price">£90</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
+                          <div class="product-btn">
+                            <div class="pro-whishlist">
+                              <a class="add-to-favorites" data-product-id="<%= product.id %>">
+                                <i class="fa-regular fa-heart"></i>
                               </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                                </a><a class="add-to-favorites" data-product-id="111">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
                             </div>
                           </div>
-
                         </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559111972.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                                </a><a class="add-to-favorites" data-product-id="112">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729860787026.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                                </a><a class="add-to-favorites" data-product-id="192">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729849934906.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                                </a><a class="add-to-favorites" data-product-id="178">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                            <div class="produt-wrap">
-                              <img src="../product_images/rose1.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                                </a><a class="add-to-favorites" data-product-id="177">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729857336588.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                                </a><a class="add-to-favorites" data-product-id="188">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                            <div class="produt-wrap">
-                              <img src="../product_images/flower_print.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£119.95</span>
-                                  <span class="mrp-price">£119.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                                </a><a class="add-to-favorites" data-product-id="187">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729861026661.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                                </a><a class="add-to-favorites" data-product-id="193">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559219639.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                                </a><a class="add-to-favorites" data-product-id="113">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559840483.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                                </a><a class="add-to-favorites" data-product-id="115">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728560741810.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£99.95</span>
-                                  <span class="mrp-price">£99.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                                </a><a class="add-to-favorites" data-product-id="117">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729850904130.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                                </a><a class="add-to-favorites" data-product-id="181">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item active" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559111972.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                                </a><a class="add-to-favorites" data-product-id="116">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                            <div class="produt-wrap">
-                              <img src="../product_images/ocean.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                                </a><a class="add-to-favorites" data-product-id="110">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/red-printed-shirt-modern-fit/179">
-                            <div class="produt-wrap">
-                              <img src="../product_images/redprinted1.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                                </a><a class="add-to-favorites" data-product-id="179">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729850769327.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/navy-printed-shirt-modern-fit/180">
-                                </a><a class="add-to-favorites" data-product-id="180">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                            <div class="produt-wrap">
-                              <img src="../product_images/navyfiletwil.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£90.00</span>
-                                  <span class="mrp-price">£90</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/navy-fine-twill-with-floral-contrast-long-sleeve-shirt/111">
-                                </a><a class="add-to-favorites" data-product-id="111">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559111972.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-white-luxor-modern-fit-long-sleeve-shirt/112">
-                                </a><a class="add-to-favorites" data-product-id="112">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729860787026.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                                </a><a class="add-to-favorites" data-product-id="192">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729849934906.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/orchid-structured-shirt-modern-fit/178">
-                                </a><a class="add-to-favorites" data-product-id="178">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                            <div class="produt-wrap">
-                              <img src="../product_images/rose1.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/rose-structured-shirt-modern-fit/177">
-                                </a><a class="add-to-favorites" data-product-id="177">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729857336588.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-fancy-safari-print-long-sleeve-shirt/188">
-                                </a><a class="add-to-favorites" data-product-id="188">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                            <div class="produt-wrap">
-                              <img src="../product_images/flower_print.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£119.95</span>
-                                  <span class="mrp-price">£119.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-fancy-flower-print-long-sleeve-shirt/187">
-                                </a><a class="add-to-favorites" data-product-id="187">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729861026661.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                                </a><a class="add-to-favorites" data-product-id="193">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559219639.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-light-blue-luxor-modern-fit-long-sleeve-shirt/113">
-                                </a><a class="add-to-favorites" data-product-id="113">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559840483.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-mauve-luxor-modern-fit-long-sleeve-shirt/115">
-                                </a><a class="add-to-favorites" data-product-id="115">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728560741810.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£99.95</span>
-                                  <span class="mrp-price">£99.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-marine-luxor-modern-fit-long-sleeve-shirt/117">
-                                </a><a class="add-to-favorites" data-product-id="117">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1729850904130.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/purple-plain-shirt-modern-fit/181">
-                                </a><a class="add-to-favorites" data-product-id="181">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                            <div class="produt-wrap">
-                              <img src="../product_images/1728559111972.jpeg" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a
-                              href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a
-                                href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/olymp-white-contrast-luxor-long-sleeve-shirt/116">
-                                </a><a class="add-to-favorites" data-product-id="116">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                            <div class="produt-wrap">
-                              <img src="../product_images/ocean.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                              </a>
-                              <div class="pro-whishlist"><a
-                                  href="/product-detail/oceanlife-print-long-sleeve-shirt/110">
-                                </a><a class="add-to-favorites" data-product-id="110">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="owl-item cloned" style="width: 250.5px; margin-right: 20px;">
-                        <div class="product-item product-item-2">
-                          <a href="/product-detail/red-printed-shirt-modern-fit/179">
-                            <div class="produt-wrap">
-                              <img src="../product_images/redprinted1.png" class="pro-img" alt="">
-                            </div>
-                          </a>
-                          <div class="product-details"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                              <div class="product-nameprice">
-                                <h6>
-
-                                </h6>
-                                <div class="product-price">
-                                  <span class="final-price">£89.95</span>
-                                  <span class="mrp-price">£89.95</span>
-                                  <span class="discount-text"> </span>
-                                </div>
-                                <div class="product-rating">
-                                  <ul>
-                                    <li>
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                      <img src="assets/images/star.png" class="star-icon" alt="">
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="product-btn"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                              </a>
-                              <div class="pro-whishlist"><a href="/product-detail/red-printed-shirt-modern-fit/179">
-                                </a><a class="add-to-favorites" data-product-id="179">
-                                  <i class="fa-regular fa-heart"></i>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
+                      </a>
                     </div>
-                  </div>
-                  <div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i
-                        class="fa-solid fa-angle-left"></i></button><button type="button" role="presentation"
-                      class="owl-next"><i class="fa-solid fa-angle-right"></i></button></div>
-                  <div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button
-                      role="button" class="owl-dot"><span></span></button><button role="button"
-                      class="owl-dot"><span></span></button></div>
+                    <% }) %>
                 </div>
 
               </div>
             </div>
           </section>
+
         </div>
       </div>
       <%- include('includes/footer') %>
@@ -1798,66 +416,118 @@
 
   <%- include('includes/foot') %>
 
-  <script>
-    $(document).ready(function () {
-      var $carousel = $('#product-detail-carousel');
-      var selectedItem = null;
+    <script>
+     document.getElementById('addToWishList').addEventListener('click', function (e) {
+    e.preventDefault();
 
-      // Initialize Owl Carousel
-      $carousel.owlCarousel({
-        items: 1,
-        nav: true,
-        dots: true,
-        loop: true
-      });
+    const selectedSize = document.getElementById('selected-size').value;
+    const message = document.getElementById("productAddedInCart");
 
-      $('.image-item').on('click', function () {
-        var index = $(this).data('index');
+    if (!selectedSize) {
+        message.textContent = "Select product size.";
+        message.style.display = "block";
+        setTimeout(() => {
+            message.style.display = "none";
+        }, 4000);
+        return;
+    }
 
-        if (selectedItem) {
-          selectedItem.find('img').removeClass('selected');
-        }
+    let productData = {
+        product_id: document.querySelector('input[name="product_id"]').value,
+        product_name: document.querySelector('input[name="product_name"]').value,
+        product_price: document.querySelector('input[name="product_price"]').value,
+        quantity: document.querySelector('input[name="quantity"]').value,
+        product_size: selectedSize,
+        product_image: document.querySelector('input[name="product_image"]').value,
+    };
 
-        // Add the 'selected' class to the clicked image
-        $(this).find('img').addClass('selected');
-        selectedItem = $(this);
-
-        // Trigger the Owl Carousel to move to the selected item
-        $carousel.trigger('to.owl.carousel', [index, 300]);
-
-        // Change the zoom image source in the carousel
-        var zoomImage = $(this).find('img').attr('src');
-        var $currentCarouselImage = $carousel.find('.owl-item').eq(index).find('.pd-img');
-        $currentCarouselImage.attr('data-zoom-image', zoomImage).elevateZoom({
-          zoomType: "lens",
-          lensShape: "round",
-          lensSize: 250,
-          zIndex: 9999
-        });
-      });
-
-      // Initialize zoom for the first image in the carousel
-      $carousel.find('.pd-img').first().elevateZoom({
-        zoomType: "lens",
-        lensShape: "round",
-        lensSize: 250,
-        zIndex: 9999
-      });
-
-      $carousel.on('changed.owl.carousel', function (event) {
-        var current = $carousel.find('.owl-item').eq(event.item.index).find('.pd-img');
-        var zoomImage = current.attr('data-zoom-image');
-        $('.zoomContainer').remove();
-        current.elevateZoom({
-          zoomType: "lens",
-          lensShape: "round",
-          lensSize: 250,
-          zIndex: 9999
-        });
-      });
+        fetch('/add-to-wishlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productData),
+        })
+            .then((response) => {
+                if (response.status === 401) {
+                    window.location.href = '/login';
+                    return;
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.success) {
+                    window.location.href = '/my-wishlist';
+                } else {
+                    alert('Failed to add product to wishlist.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     });
 
-  </script>
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        var $carousel = $('#product-detail-carousel');
+        var selectedItem = null;
+
+        // Initialize Owl Carousel
+        $carousel.owlCarousel({
+          items: 1,
+          nav: true,
+          dots: true,
+          loop: true
+        });
+
+        $('.image-item').on('click', function () {
+          var index = $(this).data('index');
+
+          if (selectedItem) {
+            selectedItem.find('img').removeClass('selected');
+          }
+
+          // Add the 'selected' class to the clicked image
+          $(this).find('img').addClass('selected');
+          selectedItem = $(this);
+
+          // Trigger the Owl Carousel to move to the selected item
+          $carousel.trigger('to.owl.carousel', [index, 300]);
+
+          // Change the zoom image source in the carousel
+          var zoomImage = $(this).find('img').attr('src');
+          var $currentCarouselImage = $carousel.find('.owl-item').eq(index).find('.pd-img');
+          $currentCarouselImage.attr('data-zoom-image', zoomImage).elevateZoom({
+            zoomType: "lens",
+            lensShape: "round",
+            lensSize: 250,
+            zIndex: 9999
+          });
+        });
+
+        // Initialize zoom for the first image in the carousel
+        $carousel.find('.pd-img').first().elevateZoom({
+          zoomType: "lens",
+          lensShape: "round",
+          lensSize: 250,
+          zIndex: 9999
+        });
+
+        $carousel.on('changed.owl.carousel', function (event) {
+          var current = $carousel.find('.owl-item').eq(event.item.index).find('.pd-img');
+          var zoomImage = current.attr('data-zoom-image');
+          $('.zoomContainer').remove();
+          current.elevateZoom({
+            zoomType: "lens",
+            lensShape: "round",
+            lensSize: 250,
+            zIndex: 9999
+          });
+        });
+      });
+
+    </script>
+
 </body>
 
 </html>

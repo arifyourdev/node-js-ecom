@@ -82,7 +82,7 @@
     font-size: 13px;
 }
 .size-filter.active {
-  background-color: #007bff; /* Change to your desired active color */
+  background-color: #005d67; /* Change to your desired active color */
   color: white;
 }
 .no-products {

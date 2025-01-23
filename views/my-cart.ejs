@@ -133,7 +133,7 @@
                       <ul>
                         <li>
                           <div class="alfa-text">Total MRP</div>
-                          <div class="alfa-price"><span class="total-cost"> £89.95 </span>
+                          <div class="alfa-price"><span class="total-cost"> £<%= total.toFixed(2) %> </span>
                           </div>
                         </li>
 
@@ -150,7 +150,7 @@
                         <li>
                           <div class="alfa-text">Sub Total</div>
                           <div class="alfa-price">
-                            <span id="total-cost" class="total-cost">£<%= total.toFixed(2) %>
+                            <span id="total-cost" class="sub-total">£<%= total.toFixed(2) %>
                             </span>
                           </div>
                         </li>
@@ -158,8 +158,12 @@
                         <li>
                           <div class="alfa-text">Delivery Fee</div>
                           <div class="alfa-price">
-                            <div class="alfa-price">£<%= deliveryFee %></div>
-                           </div>
+                            <% if (deliveryFee === 0) { %>
+                                <span id="Delivery-ajax" style="color: rgb(97, 93, 93);font-size: 15px;">Free Delivery</span>
+                            <% } else { %>
+                                <span id="Delivery-ajax"> £<%= deliveryFee.toFixed(2) %></span>
+                            <% } %>
+                        </div>
                         </li>
                       </ul>
                     </div>
@@ -168,10 +172,9 @@
                       <ul>
                         <li>
                           <div class="alfa-text">Total Cost</div>
-                          <div class="alfa-price">
-                            <span id="totalCost-ajax" class="subtotal-cost"> £<%= (total + deliveryFee).toFixed(2) %> </span>
-
-                          </div>
+                           <div class="alfa-price">
+                              <span id="totalCost-ajax" class="subtotal-cost"> £<%= (total + deliveryFee).toFixed(2) %> </span>
+                           </div>
                         </li>
                       </ul>
                     </div>
@@ -237,7 +240,6 @@
           });
         });
       });
-
     </script>
     <script>
       document.querySelectorAll('.increase').forEach(button => {
@@ -271,6 +273,9 @@
 
               const totalCostElement = document.querySelector('.total-cost');
               totalCostElement.textContent = `£${data.totalCost.toFixed(2)}`;
+
+              const subTotal = document.querySelector('.sub-total');
+              subTotal.textContent = `£${data.totalCost.toFixed(2)}`;
 
               const subtotalCostElement = document.querySelector('.subtotal-cost');
               subtotalCostElement.textContent = `£${data.totalCost.toFixed(2)}`;

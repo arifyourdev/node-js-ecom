@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 import ejs from "ejs";
 import path from "path";
 import { fileURLToPath } from 'url';
+import { getAllCategory } from "../services/admin/catService.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -190,33 +191,7 @@ export const loginUser = async (req,res) =>{
         delete req.session.cart;
     }
 
-    if (req.session.buyNow) {
-        const userId = user.id;
-
-        for (const buynow of req.session.buyNow) {
-            const { product_id, product_name, product_size, product_price, quantity, product_image } = buynow;
-
-            const [existingProduct] = await connect.execute(
-                'SELECT quantity FROM alfa_cart WHERE user_id = ? AND product_id = ?',
-                [userId, product_id]
-            );
-
-            if (existingProduct.length > 0) {
-                await connect.execute(
-                    'UPDATE alfa_cart SET quantity = quantity + ? WHERE user_id = ? AND product_id = ?',
-                    [quantity, userId, product_id]
-                );
-            } else {
-                await connect.execute(
-                    'INSERT INTO alfa_cart (user_id, product_id, product_name, product_size, product_price, quantity, product_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
-                    [userId, product_id, product_name, product_size, product_price, quantity, product_image]
-                );
-            }
-        }
-
-        // Clear the buyNow session data
-        delete req.session.buyNow;
-    }
+ 
 
     const redirectTo = req.session.redirectTo || '/';
     delete req.session.redirectTo; 
@@ -298,5 +273,45 @@ export const logOut = async (req,res) =>{
        })
     }catch(e){
         console.log(e)
+    }
+}
+
+// My Profile
+export const disProfile = async (req,res) =>{
+    try{
+        const userId = req.session.user.id;
+        
+        if (!userId) {
+          redirect("/login");
+        }
+        else {
+          const [userDetails] = await connect.execute(
+            "SELECT * FROM alfa_users WHERE id = ?",
+            [userId]
+          );
+          const catData = await getAllCategory()
+          return res.render('my-profile', { user: userDetails[0], catData });
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
+
+// Update Product
+export const updateProfile = async (req,res) =>{
+    const { user_id, name, email } = req.body;
+
+    try {
+        // Update the user's profile information in the database
+        await connect.query(
+            `UPDATE alfa_users SET name = ?, email = ? WHERE id = ? `,
+            [name, email, user_id]
+        );
+
+        // Redirect to the profile page with a success message
+        res.redirect("/my-profile");
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        res.status(500).json({ error: "Failed to update profile" });
     }
 }

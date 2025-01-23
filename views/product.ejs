@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alfa Meanswear | Home</title>
+  <title>Alfa Meanswear | Products</title>
   <meta name="robots" content="noindex">
   <%- include('includes/head') %>
 </head>
@@ -55,7 +55,18 @@
                         <h4 class="product-h4">Categories</h4>
                       </div>
                       <div class="product-cat-type">
-                        
+                        <ul class="product-cat-list">
+                         
+                            <% catData.filter(data=> data.is_accessories).forEach(data => { %>
+                            <li>
+                              <a href="collection/shirts">
+                                <button class="cat-item">
+                                  <%= data.cat_name %>
+                                    <span class="cat-span"></span>
+                                </button></a>
+                            </li>
+                            <% }) %>
+                        </ul>
                       </div>
                     </div>
 
@@ -130,6 +141,7 @@
                             <button class="size-button  bg-gray-100 size-filter "> 3XL </button>
                           </li>
                          </ul>
+                          
                       </div>
                        <hr>
                      </div>
@@ -166,6 +178,7 @@
         </section>
         <!-- End -->
       </div>
+      <%- include('includes/footer') %>
   </div>
 
   <%- include('includes/foot') %>
@@ -182,7 +195,7 @@
       console.log(products)
   
       function filterProducts() {
-  const searchQuery = searchBar.value.toLowerCase();
+      const searchQuery = searchBar.value.toLowerCase();
 
   // Get selected colors
   const selectedColors = Array.from(colorFilters)
@@ -193,7 +206,6 @@
   const selectedSizes = Array.from(sizeFilters)
     .filter((button) => button.classList.contains("active"))
     .map((button) => button.textContent.trim());
-
   // Get price range
   const minPrice = Math.min(...Array.from(priceInputs).map((input) => +input.value));
   const maxPrice = Math.max(...Array.from(priceInputs).map((input) => +input.value));
@@ -233,7 +245,7 @@ function renderProducts(products) {
           </div>
           <div class="product-brand">
             <span>${product.brand}</span>
-          </div>
+           </div>
           <div class="product-details shop-content">
             <div class="product-nameprice">
               <a href="/product-detail/${product.p_url}/${product.id}">

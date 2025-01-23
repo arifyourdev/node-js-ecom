@@ -1,4 +1,5 @@
 import connect from "../db/connect.js";
+import { getAllCategory } from "../services/admin/catService.js";
 import { getCartData } from "../services/cartService.js";
 
 export const addToCart = async (req, res) => {
@@ -215,6 +216,7 @@ export const removeCart = async (req, res) => {
 export const disCart = async (req, res, next) => {
     try {
         const { cartData, cartCount } = await getCartData(req);
+        const catData = await getAllCategory();
         const sizePromises = cartData.map(async (item) => {
             const [sizesData] = await connect.execute(
                 "SELECT size, quantity FROM p_size WHERE product_id = ?",
@@ -234,7 +236,7 @@ export const disCart = async (req, res, next) => {
             return sum + item.product_price * item.quantity;
         }, 0);
 
-        const deliveryFee = total > 70 ? 10 : 0;
+        const deliveryFee = total < 70 ? 10 : 0;
 
         res.render("my-cart", {
             cartData,
@@ -242,14 +244,13 @@ export const disCart = async (req, res, next) => {
             sizesMap,
             total,
             deliveryFee,
+            catData
         });
     } catch (err) {
         console.error(err);
         res.render("my-cart", { cartData: [], cartCount: 0, sizesMap: {}, total: 0, deliveryFee: 0 });
     }
 };
-
-
 
 export const addAddress = async (req, res) => {
     try {
@@ -266,9 +267,19 @@ export const addAddress = async (req, res) => {
 export const disAddress = async (req, res) => {
     try {
         const userId = req.session.user.id;
-        const { cartData, cartCount } = await getCartData(req)
-        const [cu_address] = await connect.execute("SELECT * FROM customer_address WHERE user_id = ?", [userId])
-        res.render('delivery-info', { cu_address, cartData, cartCount })
+        const { cartData, cartCount } = await getCartData(req);
+        const catData = await getAllCategory();
+        const [cu_address] = await connect.execute("SELECT * FROM customer_address WHERE user_id = ?", [userId]);
+
+        // Calculate total price and delivery fee
+        const total = cartData.reduce((sum, item) => {
+            return sum + item.product_price * item.quantity;
+        }, 0);
+
+        const deliveryFee = total < 70 ? 10 : 0;
+        const vat = total * 0.2;
+
+        res.render('delivery-info', { cu_address, cartData, cartCount,catData ,total ,deliveryFee,vat})
 
     } catch (e) {
         console.log(e)

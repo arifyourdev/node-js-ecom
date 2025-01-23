@@ -8,4 +8,4 @@ router.get('/product', viewProduct);
 router.get('/product-detail/:p_seo/:product_id', viewProductDetail);
  
 
-export default router
+export default router 

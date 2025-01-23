@@ -10,7 +10,7 @@
                         <a href="/product" class="nav-item">Shop <span class="icon-rotate"><i class="fa-solid fa-angle-down"></i></span></a>
                         <div class="dropdown-menu-wrapper">
                             <ul>
-                         <% catData.forEach(data=> { %>
+                                <% catData.filter(data=> data.is_accessories).forEach(data => { %>
                                  <li><a href="/collection/<%= data.cat_slug %>" class="menu-item">
                                      <%= data.cat_name %>
                                  </a>
@@ -25,17 +25,12 @@
                         <div class="dropdown-menu-wrapper">
                             <ul>
                                 
-                                    <li><a href="/accessories/belts" class="menu-item">
-                                            Belts
-                                        </a></li>
-                                    
-                                    <li><a href="/accessories/wallets" class="menu-item">
-                                            Wallets
-                                        </a></li>
-                                    
-                                    <li><a href="/accessories/shoes" class="menu-item">
-                                            Shoes
-                                        </a></li>
+                                <% catData.filter(data=> !data.is_accessories).forEach(data => { %>
+                                    <li><a href="/accessories/<%= data.cat_slug %>" class="menu-item">
+                                        <%= data.cat_name %>
+                                    </a>
+                                   </li>
+                            <% }) %>
                                     
                             </ul>
                         </div>
@@ -102,13 +97,13 @@
                             <div class="alfa-icon-flex position-relative">
                                 <img src="assets/images/heart.png" width="100%" alt="">
                                 <span class="product-count count-text" style="right: 5px;">
-                                    0
+                                    <%= typeof wishlistCount !== 'undefined' ? wishlistCount : 0 %>
                                 </span>
                                 <span>Wishlist</span>
                             </div>
                         </a>
                     </li>
-
+                    
                     <li id="cart">
                         <a href="my-cart">
                             <div class="alfa-icon-flex position-relative">

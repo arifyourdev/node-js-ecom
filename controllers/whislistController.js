@@ -1,5 +1,6 @@
 import connect from "../db/connect.js";
 import { getAllCategory } from "../services/admin/catService.js";
+import { getCartData } from "../services/cartService.js";
 import { getWishlistData } from "../services/wishlistService.js";
 
 export const addToWishList = async (req, res) => {
@@ -40,7 +41,9 @@ export const addToWishList = async (req, res) => {
 export const disWishList = async (req ,res) =>{
     try {
         const {  whislistData, wishlistCount } = await getWishlistData(req);
+        const {cartData,cartCount } = await getCartData(req);
         const catData = await getAllCategory();
+         
         const sizePromises = whislistData.map(async (item) => {
             const [sizesData] = await connect.execute(
                 "SELECT size, quantity FROM p_size WHERE product_id = ?",
@@ -68,7 +71,9 @@ export const disWishList = async (req ,res) =>{
             sizesMap,
             total,
             deliveryFee,
-            catData
+            catData,
+            cartData,
+            cartCount
         });
     } catch (err) {
         console.error(err);

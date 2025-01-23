@@ -8,3 +8,4 @@ export const getAllCategory = async (req,res) =>{
         console.log(e)
     }
 }
+ 

@@ -179,8 +179,8 @@
                                     <script>
                                         document.getElementById('sku').addEventListener('input', function () {
                                             const sku = this.value;
-                                            const randomAlphanumeric = generateRandomAlphanumeric(8); // Generate 8 random alphanumeric characters
-                                            const barcode = sku + randomAlphanumeric; // Combine SKU with the random alphanumeric string
+                                            const randomAlphanumeric = generateRandomAlphanumeric(8);
+                                            const barcode = sku + randomAlphanumeric;
                                             document.getElementById('barcode').value = barcode;
                                         });
 

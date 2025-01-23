@@ -82,7 +82,7 @@ export const displayUserOrders = async (req, res) => {
 
       // Calculate costs
       let subtotal = orderItems.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
-      let deliveryFee = subtotal < 75 ? 5 : 0;
+      let deliveryFee = subtotal < 75 ? 10 : 0;
       let vat = subtotal * 0.2;
       let totalCost = subtotal + vat + deliveryFee;
       const catData = await getAllCategory();

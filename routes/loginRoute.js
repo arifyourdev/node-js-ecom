@@ -1,9 +1,12 @@
 import express from "express";
-import { signUp ,loginUser, requesOtp, logOut,verifyOtp ,updatePassword ,verifyOtpAndRegister } from "../controllers/loginController.js";
+import { signUp ,loginUser, requesOtp, logOut,verifyOtp ,updatePassword ,verifyOtpAndRegister, disProfile, updateProfile } from "../controllers/loginController.js";
+import { getAllCategory } from "../services/admin/catService.js";
+import { ensureAuthenticated } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.get('/signup', (req,res) =>{
-    res.render('signup')
+router.get('/signup', async(req,res) =>{
+    const catData = await getAllCategory();
+    res.render('signup',{catData})
 })
 router.post('/signup', signUp)
 router.get('/ac-verification',(req,res) =>{
@@ -11,10 +14,11 @@ router.get('/ac-verification',(req,res) =>{
 })
 router.post('/ac-verification',verifyOtpAndRegister)
 
-router.get('/login',(req,res) =>{
+router.get('/login', async(req,res) =>{
     // const previousUrl = req.headers.referer || '/'; 
     // req.session.redirectTo = previousUrl; 
-    res.render('login')
+    const catData = await getAllCategory();
+    res.render('login',{catData})
 })
 router.get('/forget-password',(req,res)=>{
     res.render('forget-password')
@@ -34,4 +38,6 @@ router.post('/update-password',updatePassword)
 router.post('/login', loginUser)
 router.get('/logout',logOut)
 
+router.get('/my-profile',ensureAuthenticated ,disProfile);
+router.post('/save-profile', updateProfile)
 export default router

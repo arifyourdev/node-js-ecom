@@ -7,7 +7,11 @@
         </div>
         <div class="">
             <div>
-                <h2 class="text-[white] mr-0">Right</h2>
+                <% if (user) { %>
+                    <a href="admin-logout" class="text-white">Logout </a>
+                       <% } else { %>
+                    <h2 class="text-[white] mr-0">sdsa</h2>
+                <% } %>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ import { addToCart ,disCart ,addAddress ,disAddress ,updateCartQuantity, removeC
 import { ensureAuthenticated } from "../middleware/authMiddleware.js";
 import { buyNow } from "../controllers/buynowController.js";
 import { getCartData } from "../services/cartService.js";
+import { getAllCategory } from "../services/admin/catService.js";
 
 const router = express.Router();
 
@@ -15,15 +16,14 @@ router.get('/delivery-info', ensureAuthenticated, disAddress);
 router.post('/add-address', addAddress);
 
 router.get('/add-address',ensureAuthenticated, async (req,res) =>{
-   const {cartData,cartCount } = await getCartData(req)
-    res.render('add-address',{cartData,cartCount })
+   const {cartData,cartCount } = await getCartData(req);
+    const catData = await getAllCategory();
+    res.render('add-address',{cartData,cartCount,catData})
 })
   
 router.post('/buy-now',buyNow)
-
 router.post('/update-cart-quantity' ,updateCartQuantity);
 router.post('/update-cart-size' ,updateCartSize);
-
 router.delete('/remove-item/:id/:size' ,removeCart);
 
 export default router

@@ -182,199 +182,50 @@
                 <!-- <p>Preorder not to receive exclusive deals & gifts</p> -->
               </div>
               <div class="arrival-wrapper">
-                
-                  <div class="product-item product-item-2" data-color="">
+                <% newArrivalData.forEach(product=> { %>
+                  <div class="product-item product-item-2" data-color="<%= product.color %>">
                     <div class="produt-wrap">
-                      <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/193">
-                        <img src="../product_images/1729861026661.png" class="pro-img" alt="">
+                      <a href="/product-detail/<%= product.p_url %>/<%= product.id %>">
+                        <img src="<%= product.p_image %>" class="pro-img" alt="">
                       </a>
                     </div>
                     <div class="product-add-to-card-wrap d-none">
-                      <button class="add-to-cart" data-product-id="193">
+                      <button class="add-to-cart" data-product-id="<%= product.id %>">
                         <span><i class="fa-solid fa-cart-shopping"></i></span>
                         Add to Cart
                       </button>
                     </div>
                     <div class="product-details shop-content">
                       <div class="product-nameprice">
-                        <a href="/product-detail/193">
+                        <a href="/product-detail/<%= product.id %>">
                           <h2>
-                            Giordano Fine Twill With Contrast Long Sleeve Shirt
+                            <%= product.p_name %>
                           </h2>
                          </a>
                         <div class="product-price">
                           <h5>
-                            <span class="final-price">£ 89.95</span>
-                            <span class="mrp-price">£ 89.95</span>
-                             
-                          </h5>
+                            
+                            <span class="final-price">£ <%= product.p_main_price %></span>
+                           </h5>
                         </div>
                       </div>
                       <div class="product-btn">
                         <div class="pro-whishlist">
-                          <a class="add-to-favorites" data-product-id="193">
+                          <a class="add-to-favorites" data-product-id="<%= product.id %>">
                             <i class="fa-regular fa-heart"></i>
                           </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="product-item product-item-2" data-color="">
-                    <div class="produt-wrap">
-                      <a href="/product-detail/giordano-white-fine-twill-with-contrast-long-sleeve-shirt/192">
-                        <img src="../product_images/1729860787026.png" class="pro-img" alt="">
-                      </a>
-                    </div>
-                    <div class="product-add-to-card-wrap d-none">
-                      <button class="add-to-cart" data-product-id="192">
-                        <span><i class="fa-solid fa-cart-shopping"></i></span>
-                        Add to Cart
-                      </button>
-                    </div>
-                    <div class="product-details shop-content">
-                      <div class="product-nameprice">
-                        <a href="/product-detail/192">
-                          <h2>
-                            Giordano Fine Twill With Contrast Long Sleeve Shirt
-                          </h2>
-                         </a>
-                        <div class="product-price">
-                          <h5>
-                            <span class="final-price">£ 89.95</span>
-                            <span class="mrp-price">£ 89.95</span>
-                             
-                          </h5>
-                        </div>
-                      </div>
-                      <div class="product-btn">
-                        <div class="pro-whishlist">
-                          <a class="add-to-favorites" data-product-id="192">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="product-item product-item-2" data-color="">
-                    <div class="produt-wrap">
-                      <a href="/product-detail/giordano-blazer-robert-big-paisley-print-with-tencel/191">
-                        <img src="../product_images/1729860261011.png" class="pro-img" alt="">
-                      </a>
-                    </div>
-                    <div class="product-add-to-card-wrap d-none">
-                      <button class="add-to-cart" data-product-id="191">
-                        <span><i class="fa-solid fa-cart-shopping"></i></span>
-                        Add to Cart
-                      </button>
-                    </div>
-                    <div class="product-details shop-content">
-                      <div class="product-nameprice">
-                        <a href="/product-detail/191">
-                          <h2>
-                            Giordano Blazer Robert Big Paisley Print with Tencel
-                          </h2>
-                         </a>
-                        <div class="product-price">
-                          <h5>
-                            <span class="final-price">£ 249.00</span>
-                            <span class="mrp-price">£ 249</span>
-                             
-                          </h5>
-                        </div>
-                      </div>
-                      <div class="product-btn">
-                        <div class="pro-whishlist">
-                          <a class="add-to-favorites" data-product-id="191">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="product-item product-item-2" data-color="">
-                    <div class="produt-wrap">
-                      <a href="/product-detail/leo-technical-jacket-laser-fused-real-down/190">
-                        <img src="../product_images/1729858513810.png" class="pro-img" alt="">
-                      </a>
-                    </div>
-                    <div class="product-add-to-card-wrap d-none">
-                      <button class="add-to-cart" data-product-id="190">
-                        <span><i class="fa-solid fa-cart-shopping"></i></span>
-                        Add to Cart
-                      </button>
-                    </div>
-                    <div class="product-details shop-content">
-                      <div class="product-nameprice">
-                        <a href="/product-detail/190">
-                          <h2>
-                            Leo Technical Jacket Laser Fused Real Down
-                          </h2>
-                         </a>
-                        <div class="product-price">
-                          <h5>
-                            <span class="final-price">£ 299.00</span>
-                            <span class="mrp-price">£ 299</span>
-                             
-                          </h5>
-                        </div>
-                      </div>
-                      <div class="product-btn">
-                        <div class="pro-whishlist">
-                          <a class="add-to-favorites" data-product-id="190">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="product-item product-item-2" data-color="">
-                    <div class="produt-wrap">
-                      <a href="/product-detail/peppe-packable-parka-lightweight-jacket-water-and-windproof/189">
-                        <img src="../product_images/1729858382556.png" class="pro-img" alt="">
-                      </a>
-                    </div>
-                    <div class="product-add-to-card-wrap d-none">
-                      <button class="add-to-cart" data-product-id="189">
-                        <span><i class="fa-solid fa-cart-shopping"></i></span>
-                        Add to Cart
-                      </button>
-                    </div>
-                    <div class="product-details shop-content">
-                      <div class="product-nameprice">
-                        <a href="/product-detail/189">
-                          <h2>
-                            Peppe Packable Parka Lightweight Jacket Water &amp; Windproof
-                          </h2>
-                         </a>
-                        <div class="product-price">
-                          <h5>
-                            <span class="final-price">£ 299.00</span>
-                            <span class="mrp-price">£ 299</span>
-                             
-                          </h5>
-                        </div>
-                      </div>
-                      <div class="product-btn">
-                        <div class="pro-whishlist">
-                          <a class="add-to-favorites" data-product-id="189">
-                            <i class="fa-regular fa-heart"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
+                  <% }) %>
 
               </div>
             </div>
-        </div></section>
+        </section>
         <!-- END -->
-        <!-- BESTSELLER -->
-       
+        
+    
         <!-- TESTIMONIAL -->
         <section class="mt-80">
           <div class="container">

@@ -57,10 +57,18 @@ export const displayOrderDetail = async (req, res) => {
        WHERE oi.orders_id = ?`,
       [order_id]
     );
-    let subtotal = orderItems.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
-    let deliveryFee = subtotal < 75 ? 5 : 0;
+    console.log("Order Items:", orderItems);
+
+    let subtotal = orderItems.reduce((acc, item) => {
+      const productPrice = parseFloat(item.p_price) || 0;
+      const quantity = parseInt(item.quantity, 10) || 0; 
+      return acc + productPrice * quantity;
+    }, 0)
+    console.log(subtotal)
+    let deliveryFee = subtotal < 75 ? 10 : 0;
     let vat = subtotal * 0.2;
     let totalCost = subtotal +  vat + deliveryFee;
+    console.log(totalCost)
 
     res.render("admin/order-details", {orderID, order,orderItems ,subtotal ,totalCost , deliveryFee ,vat});
   } catch (e) {

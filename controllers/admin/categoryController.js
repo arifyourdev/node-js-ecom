@@ -11,7 +11,7 @@ export const disCategory = async (req,res) =>{
 }
 
 export const addCategory = async (req,res) =>{
-    const {cat_name,cat_slug,status} = req.body;
+    const {cat_name,cat_slug, is_accessories,status} = req.body;
     try {
         const [existingCategory] = await connect.execute(
             "SELECT COUNT(*) AS count FROM category WHERE cat_slug = ?",
@@ -23,8 +23,8 @@ export const addCategory = async (req,res) =>{
         }
     
         await connect.execute(
-            "INSERT INTO category (cat_name, cat_slug, status, created_at) VALUES (?, ?, ?, NOW())",
-            [cat_name, cat_slug, status]
+            "INSERT INTO category (cat_name, cat_slug, is_accessories, status, created_at) VALUES (?, ?, ?, ?, NOW())",
+            [cat_name, cat_slug, is_accessories, status]
         );
         res.redirect('/admin/category-list');
     } catch (e) {

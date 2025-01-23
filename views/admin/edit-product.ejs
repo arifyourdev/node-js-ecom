@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product | Alfamenswear</title>
     <%- include('includes/head') %>
-        <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -68,11 +68,23 @@
                                         <div class="sm:w-[50%]">
                                             <div>
                                                 <label class="font-[600]">Seo Url</label>
-                                                <input type="text" name="p_url" value="<%= editProduct.p_url %>"
+                                                <input type="text" name="p_url" id="seo-url" value="<%= editProduct.p_url %>"
                                                     class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
                                                     required>
                                             </div>
                                         </div>
+                                        <script>
+                                            document.getElementById('product-name').addEventListener('input', function() {
+                                                const productName = this.value;
+                                                const seoUrl = productName
+                                                    .toLowerCase()
+                                                    .replace(/[^a-z0-9\s]/g, '')
+                                                    .trim()
+                                                    .replace(/\s+/g, '-');
+                                                document.getElementById('seo-url').value = seoUrl;
+                                            });
+
+                                        </script>
                                     </div>
                                     <div class="flex gap-5 mt-5">
                                         <div class="sm:w-[50%]">
@@ -243,6 +255,7 @@
                                                                 class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
                                                                 required>
                                                         </div>
+                                                        
                                                     </div>
                                                     <div class="sm:w-[45%]">
                                                         <div>

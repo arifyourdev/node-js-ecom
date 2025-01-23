@@ -18,9 +18,9 @@ sizeButtons.forEach(button => {
     });
 });
 
-
-document.getElementById('addToCart').addEventListener('click', function (e) {
+document.getElementById('addToWishList').addEventListener('click', function (e) {
     e.preventDefault();
+    alert('hii')
 
     const selectedSize = document.getElementById('selected-size').value;
     var message = document.getElementById("productAddedInCart");
@@ -42,7 +42,7 @@ document.getElementById('addToCart').addEventListener('click', function (e) {
         product_image: document.querySelector('input[name="product_image"]').value,
      };
    
-    fetch('/add-to-cart', {
+    fetch('/add-to-wishlist', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -52,8 +52,7 @@ document.getElementById('addToCart').addEventListener('click', function (e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-             
-            window.location.href ='/my-cart'
+            window.location.href ='/my-wishlist'
         } else {
             alert('Failed to add product to cart.');
         }
