@@ -9,3 +9,12 @@ export const getAllCategory = async (req,res) =>{
     }
 }
  
+
+export const getAllTypeCategory = async (req,res) =>{
+    try{
+        const [catData] = await connect.execute("SELECT * FROM category");
+        return catData 
+    }catch(e){
+        console.log(e)
+    }
+}

@@ -7,17 +7,42 @@
                     <li><a href="/about-us" class="nav-item">About Us</a></li>
                     <li><a href="/blogs" class="nav-item">Blogs</a></li>
                     <li class="position-relative alfa-menu-li">
+            
+                            <style>
+                                .alfa-navbar ul.menu-ul-wrap a{
+                                    color: #000;
+                                    font-size: 16px;
+                                }
+                                .alfa-navbar ul.menu-ul-wrap a:hover{
+                                border-bottom: 0px solid #eee !important;
+                                }
+                            </style>
                         <a href="/product" class="nav-item">Shop <span class="icon-rotate"><i
                                     class="fa-solid fa-angle-down"></i></span></a>
-                        <div class="dropdown-menu-wrapper">
-                            <ul>
-                                <% catData.filter(data=> data.is_accessories).forEach(data => { %>
-                                    <li><a href="/collection/<%= data.cat_slug %>" class="menu-item">
-                                            <%= data.cat_name %>
-                                        </a>
-                                    </li>
-                                    <% }) %>
-                            </ul>
+                        <div class="dropdown-menu-wrapper" style="opacity: 1; visibility: visible;">
+                            <div style="display: grid;grid-template-columns: auto auto;align-items: self-start">
+                            <% typeData.forEach (typed =>{ %>
+                                <ul class="menu-ul-wrap">
+                                    <a href="<%= typed.type_url %>" ><%= typed.i_type %></a>
+                                    
+                                    <% const filteredCategories = catData.filter(data => data.wear_type_id === typed.id); %>
+                                    <% if (filteredCategories.length > 0) { %>
+                                        <% filteredCategories.forEach(data => { %>
+                                            <li>
+                                                <a href="/collection/<%= data.cat_slug %>" class="menu-item">
+                                                    <%= data.cat_name %>
+                                                </a>
+                                            </li>
+                                        <% }) %>
+                                    <% } else { %>
+                                        <li>No categories available</li>
+                                    <% } %>
+                                    
+                                   </li>
+                                </ul>
+                                <%}) %>
+                            </div>
+                            
 
                         </div>
                     </li>

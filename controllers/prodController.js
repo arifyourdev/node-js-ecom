@@ -1,20 +1,24 @@
 import connect from "../db/connect.js"
-import { getAllCategory } from "../services/admin/catService.js";
+import { getAllCategory, getAllTypeCategory } from "../services/admin/catService.js";
 import { getAllProduct } from "../services/admin/prouctService.js"
+import { disAllType } from "../services/admin/typeService.js";
 import { getCartData } from "../services/cartService.js";
 import { getWishlistData } from "../services/wishlistService.js";
 
 export const disByCategory = async (req, res) => {
     try {
         const { cat_slug } = req.params;
+
+        // Fetch all categories with their associated wear types
         const [allCategories] = await connect.execute(`
             SELECT c.*, 
-                   COUNT(p.id) AS product_count
+                   COUNT(p.id) AS product_count,
+                   t.i_type AS i_type,
+                   t.id AS wear_type_id
             FROM category c
             LEFT JOIN products p ON c.id = p.cat_id
-            WHERE c.is_accessories != 0
+            LEFT JOIN inventory_type t ON c.wear_type_id = t.id
             GROUP BY c.id
-            HAVING product_count > 0
         `);
 
         // Fetch the selected category details
@@ -35,13 +39,17 @@ export const disByCategory = async (req, res) => {
             [cat_id]
         );
 
+        // Fetch cart and type data
         const { cartData, cartCount } = await getCartData(req);
+        const typeData = await getAllTypeCategory();
 
+        // Render the template with all data
         res.render("collection", {
             prodData,
             cartData,
             cartCount,
-            catData: allCategories, // Filtered categories with non-zero product counts
+            typeData, // List of all wear types
+            catData: allCategories, // Categories including their wear types
             selectedCategory: selectedCategory[0],
         });
     } catch (e) {
@@ -55,9 +63,10 @@ export const viewProduct = async (req,res) =>{
     try{
        const prodData = await getAllProduct();
        const catData = await getAllCategory();
+       const typeData = await disAllType();
        const {cartData,cartCount } = await getCartData(req);
        const {whislistData, wishlistCount} = await getWishlistData(req)
-       res.render('product', {prodData,cartData,cartCount,catData,whislistData, wishlistCount});
+       res.render('product', {prodData,cartData,cartCount,typeData,catData,whislistData, wishlistCount});
     }catch(e){
         console.log(e)
     }
@@ -85,13 +94,15 @@ export const viewProductDetail = async (req, res, next) => {
         // Cart & WishList Count
         const {cartData,cartCount } = await getCartData(req);
         const {whislistData, wishlistCount} = await getWishlistData(req)
-        const catData = await getAllCategory()
+        const catData = await getAllCategory();
+        const typeData = await disAllType();
         res.render('product-detail', { 
             proDetailData: proDetailData[0],
             sizes:sizeData,
             proImages:proImages,
             cartData,cartCount,
             catData,
+            typeData,
             bestSellerData,
             whislistData, 
             wishlistCount
@@ -106,7 +117,8 @@ export const viewProductDetail = async (req, res, next) => {
 export const newArrival = async (req,res) =>{
     const {cartData,cartCount } = await getCartData(req);
     const catData = await getAllCategory();
+    const typeData = await disAllType();
     const [newArrivalData] = await connect.execute('Select * from products Where new_arrival = "yes"');
-    res.render('index',{newArrivalData,cartData,cartCount,catData})
+    res.render('index',{newArrivalData,cartData,cartCount,catData,typeData})
 }
  
