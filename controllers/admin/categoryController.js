@@ -19,7 +19,7 @@ export const addCategory = async (req,res) =>{
         );
     
         if (existingCategory[0].count > 0) {
-            return res.status(400).send("Category slug already exists.");
+            return res.ren(400).send("Category slug already exists.");
         }
     
         await connect.execute(

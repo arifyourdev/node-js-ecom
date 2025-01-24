@@ -71,11 +71,11 @@ app.use("/",newsRoute);
  
 // Admin Routes
 app.use('/admin/',adminLoginRoute);
-app.use('/admin/',authenticateAdmin,categoryRoute);
-app.use('/admin/', authenticateAdmin, productRoute);
-app.use('/admin/', authenticateAdmin, typeRoute);
-app.use('/admin/', authenticateAdmin, sizeRoute);
-app.use('/admin/', authenticateAdmin, orderRoute);
+app.use('/admin/',categoryRoute);
+app.use('/admin/', productRoute);
+app.use('/admin/', typeRoute);
+app.use('/admin/', sizeRoute);
+app.use('/admin/', orderRoute);
 
 app.use('/admin', authenticateAdmin,(req,res) =>{
     res.render('admin/index')

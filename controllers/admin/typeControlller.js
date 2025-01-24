@@ -12,8 +12,8 @@ export const displayType = async (req,res) =>{
 
 export const addType = async(req,res) =>{
   try{
-     const {i_type, status} = req.body;
-     await connect.execute("INSERT INTO inventory_type (i_type,status, created_at) VALUES (?, ?, NOW())",[i_type,status]);
+     const {i_type, type_url,status} = req.body;
+     await connect.execute("INSERT INTO inventory_type (i_type, type_url, status, created_at) VALUES (?, ?, ?, NOW())",[i_type,type_url,status]);
      res.redirect('/admin/type-list')
   }catch(e){
     console.log(e)

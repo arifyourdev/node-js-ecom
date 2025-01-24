@@ -28,7 +28,7 @@ export const disProduct = async (req, res) => {
 // Add Product
 export const addProduct = async (req, res) => {
     try {
-        const { cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, type, new_arrival, best_seller, size, quantity } = req.body;
+        const { wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, size, quantity } = req.body;
         
         const mainImage = req.files['p_image'][0]; // Single file
         const additionalImages = req.files['p_images']; // Array of files
@@ -40,8 +40,8 @@ export const addProduct = async (req, res) => {
 
         // Insert engine data into `engines` table
         const [engineResult] = await connect.execute(
-            "INSERT INTO products (cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, type, new_arrival, best_seller, p_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
-            [cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, type, new_arrival, best_seller, main_image_path]
+            "INSERT INTO products (wear_type_id,cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, p_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
+            [wear_type_id,cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, main_image_path]
         );
 
         const product_id = engineResult.insertId;
@@ -156,7 +156,7 @@ export const updateProduct = async (req, res) => {
     try {
         const {
             id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
-            p_key_features, tags, brand, sku, colour, type, new_arrival, best_seller,
+            p_key_features, tags, brand, sku, colour, new_arrival, best_seller,
             size, quantity
         } = req.body;
 
@@ -190,10 +190,10 @@ export const updateProduct = async (req, res) => {
         }
 
         await connect.execute(
-            "UPDATE products SET cat_id = ?, p_name = ?, p_price = ?, discount = ?, p_main_price = ?, p_url = ?, p_title = ?, p_desc = ?, p_key_features = ?, tags = ?, brand = ?, sku = ?, colour = ?, type = ?, new_arrival = ?, best_seller = ?, p_image = ? WHERE id = ?",
+            "UPDATE products SET cat_id = ?, p_name = ?, p_price = ?, discount = ?, p_main_price = ?, p_url = ?, p_title = ?, p_desc = ?, p_key_features = ?, tags = ?, brand = ?, sku = ?, colour = ?, new_arrival = ?, best_seller = ?, p_image = ? WHERE id = ?",
             [
                 cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
-                p_key_features, tags, brand, sku, colour, type, new_arrival, best_seller,
+                p_key_features, tags, brand, sku, colour,  new_arrival, best_seller,
                 main_image_path, id
             ]
         );

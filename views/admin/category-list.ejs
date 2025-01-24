@@ -32,6 +32,7 @@
                                         <thead class="bg-gray-100  border-b-[2px]">
                                             <tr>
                                                 <th class="p-3 text-left">Sr.No</th>
+                                                <th class="p-3 text-left">Wear Type</th>
                                                 <th class="p-3 text-left">Category Name</th>
                                                 <th class="p-3 text-left">Slug</th>
                                                 <th class="p-3 text-left">Status</th>
@@ -43,6 +44,7 @@
                                                 <% catData.forEach((data, index) => { %>          
                                                 <tr class="shadow">
                                                     <td class="p-3 px-3"><%= index + 1 %></td>
+                                                    <td class="p-3 px-3"><%= data.wear_type_id %></td>  
                                                     <td class="p-3 px-3"><%= data.cat_name %></td>  
                                                     <td class="p-3 px-3"><%= data.cat_slug %></td>  
                                                     <td class="p-3 px-3"><%= data.status == 1 ? 'Active' : 'Inactive' %></td>

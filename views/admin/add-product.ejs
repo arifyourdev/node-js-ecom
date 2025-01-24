@@ -30,34 +30,53 @@
                                     <div class="flex gap-5">
                                         <div class="sm:w-[50%]">
                                             <div>
+                                                <label class="font-[600]">Wear Type</label>
+                                                <select name="wear_type_id" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none">
+                                                    <option value="active">Select</option>
+                                                 <% typeData.forEach(data =>{ %> 
+                                                       <option value="<%= data.id %>"><%= data.i_type %></option>
+                                                    <%})%>   
+                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="sm:w-[50%]">
+                                            <div>
                                                 <label class="font-[600]">Category Name</label>
-                                                <select name="cat_id" id="selectMenuFecture"
+                                                <select name="cat_id"
                                                     class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
                                                     required>
                                                     <option value="">Select</option>
                                                     <% catData.forEach((data)=>{ %>
-                                                        <option value="<%= data.id %>" data-menu_id="<%= data.id %>">
+                                                        <option value="<%= data.id %>" data-wear_type_id="<%= data.wear_type_id %>">
                                                             <%= data.cat_name %>
                                                         </option>
                                                         <% }) %>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="sm:w-[50%]">
-                                            <div>
-                                                <label class="font-[600]">Type</label>
-                                                <select name="type" id=""
-                                                    class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none"
-                                                    required>
-                                                    <option value="">Select</option>
-                                                    <% typeData.forEach((data)=>{ %>
-                                                        <option value="<%= data.i_type %>" data-menu_id="<%= data.i_type %>">
-                                                            <%= data.i_type %>
-                                                        </option>
-                                                        <% }) %>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', () => {
+                                                const wearTypeSelect = document.querySelector('select[name="wear_type_id"]');
+                                                const categorySelect = document.querySelector('select[name="cat_id"]');
+                                                const categoryOptions = Array.from(categorySelect.options);  
+                                                  wearTypeSelect.addEventListener('change', () => {
+                                                    const selectedWearTypeId = wearTypeSelect.value;
+                                                    
+                                                    categorySelect.innerHTML = '<option value="">Select</option>';
+                                        
+                                                    // Filter and add matching category options
+                                                    categoryOptions.forEach(option => {
+                                                        if (option.dataset.wear_type_id === selectedWearTypeId) {
+                                                            categorySelect.appendChild(option);
+                                                        }
+                                                        
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                        
+                                    </div>
+                                    <div class="flex gap-5 mt-5">
                                         <div class="sm:w-[50%]">
                                             <div>
                                                 <label class="font-[600]">Product Name</label>
@@ -74,18 +93,6 @@
                                                     required>
                                             </div>
                                         </div>
-                                        <script>
-                                            document.getElementById('product-name').addEventListener('input', function() {
-                                                const productName = this.value;
-                                                const seoUrl = productName
-                                                    .toLowerCase()
-                                                    .replace(/[^a-z0-9\s]/g, '')
-                                                    .trim()
-                                                    .replace(/\s+/g, '-');
-                                                document.getElementById('seo-url').value = seoUrl;
-                                            });
-
-                                        </script>
                                     </div>
                                     <div class="flex gap-5 mt-5">
                                         <div class="sm:w-[50%]">
@@ -287,6 +294,18 @@
         </div>
     </div>
     <%- include('includes/foot') %>
+    <script>
+        document.getElementById('product-name').addEventListener('input', function() {
+            const productName = this.value;
+            const seoUrl = productName
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]/g, '')
+                .trim()
+                .replace(/\s+/g, '-');
+            document.getElementById('seo-url').value = seoUrl;
+        });
+
+    </script>
         <script>
             var price = document.getElementById("price")
             var discount = document.getElementById("discount")
