@@ -58,7 +58,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/', prodRoute);
+
 app.use('/', accessoriesRoute);
 app.use('/', commonRoute);
 app.use('/',loginRoute) ;
@@ -66,7 +66,8 @@ app.use('/', cartRoute);
 app.use('/', wishlistRoute);
 app.use('/', paypalRoute);
 app.use("/" , frontOrderRoute);
-app.use("/",newsRoute);
+app.use("/", newsRoute);
+app.use('/', prodRoute);
 
  
 // Admin Routes

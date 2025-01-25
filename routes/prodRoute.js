@@ -1,5 +1,5 @@
 import express from "express";
-import { disByCategory, viewProduct ,viewProductDetail } from "../controllers/prodController.js";
+import { disByCategory, viewProduct ,viewProductDetail ,dispTypeWiseProduct} from "../controllers/prodController.js";
 import connect from "../db/connect.js";
  
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/collection/:cat_slug',disByCategory)
 router.get('/product', viewProduct);
 router.get('/product-detail/:p_seo/:product_id', viewProductDetail);
-
+router.get('/products/:type_url' ,dispTypeWiseProduct);
 router.get('/search-products', async (req, res) => {
     const query = req.query.query;
 

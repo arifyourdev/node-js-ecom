@@ -146,7 +146,7 @@
                     </div>
                     <ul class="flex gap-4">
                       <% sizes.forEach(size=> { %>
-                        <li class="relative">
+                        <li class="relative" style="position: relative;">
                           <button class="size-button 
                                     <% if (size.quantity === 0) { %> size-disabled <% } else { %> bg-gray-100 <% } %>"
                             data-size="<%= size.size %>" data-quantity="<%= size.quantity %>" data-selected="false" <%
@@ -157,9 +157,8 @@
                                     <%= size.size %>
                           </button>
                           <% if (size.quantity> 0 && size.quantity < 5) { %>
-                              <div
-                                class="tooltip hidden absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 px-4 py-2 bg-gray-800 text-white text-sm rounded opacity-0 transition-opacity duration-300">
-                                Hurry up! Only <%= size.quantity %> items left
+                              <div class="size-popup">
+                                   <%= size.quantity %> Left
                               </div>
                               <% } %>
                         </li>
@@ -169,7 +168,7 @@
                   </div>
 
                   <div class="product--button-wrapper">
-                    <div class="cart-quantity-wrapper">
+                    <div class="cart-quantity-wrapper d-none">
                       <div class="left-input">
                         <span class="decrement"><i class="fa-solid fa-minus"></i></span>
                       </div>

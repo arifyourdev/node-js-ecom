@@ -29,7 +29,7 @@ router.post('/admin-login', async(req,res) =>{
                     type:user.type,
                     token:token
                 }
-                const redirectTo = req.session.redirectTo || '/admin';
+                const redirectTo = req.session.redirectTo || '/admin/index';
                 delete req.session.redirectTo; 
                 res.redirect(redirectTo);
                 

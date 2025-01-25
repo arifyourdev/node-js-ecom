@@ -41,15 +41,15 @@ export const disByCategory = async (req, res) => {
 
         // Fetch cart and type data
         const { cartData, cartCount } = await getCartData(req);
-        const typeData = await getAllTypeCategory();
+        const typeData = await disAllType();
 
         // Render the template with all data
         res.render("collection", {
             prodData,
             cartData,
             cartCount,
-            typeData, // List of all wear types
-            catData: allCategories, // Categories including their wear types
+            typeData,
+            catData: allCategories,
             selectedCategory: selectedCategory[0],
         });
     } catch (e) {
@@ -72,7 +72,7 @@ export const viewProduct = async (req,res) =>{
     }
 }
 
-export const viewProductDetail = async (req, res, next) => {
+export const viewProductDetail = async (req, res) => {
     try {
         const { product_id, p_seo } = req.params;
         if (!product_id || !p_seo) {
@@ -82,7 +82,7 @@ export const viewProductDetail = async (req, res, next) => {
             "SELECT * FROM products WHERE id = ? AND p_url = ?", 
             [product_id, p_seo]
         );
-
+      console.log(proDetailData)
       // Fetch best seller products
         const [bestSellerData] = await connect.execute('SELECT * FROM products WHERE best_seller = "yes"');
 
@@ -122,3 +122,29 @@ export const newArrival = async (req,res) =>{
     res.render('index',{newArrivalData,cartData,cartCount,catData,typeData})
 }
  
+export const dispTypeWiseProduct = async (req, res) => {
+    try {
+      const { type_url } = req.params;
+  
+      // Fetch the type_id based on the provided type_url
+      const [typeD] = await connect.execute(
+        'SELECT id FROM inventory_type WHERE type_url = ?',
+        [type_url]
+      );
+   
+      const typeId = typeD[0].id;
+      const [prodData] = await connect.execute(
+        'SELECT * FROM products WHERE wear_type_id = ?',
+        [typeId]
+      );
+     const catData = await getAllCategory();
+     const typeData = await disAllType();
+  
+      // Render the view with the fetched products
+      res.render('product-type-list', { prodData ,catData,typeData});
+    } catch (e) {
+      console.error(e);
+      res.status(500).send('An error occurred while fetching products.');
+    }
+  };
+  
