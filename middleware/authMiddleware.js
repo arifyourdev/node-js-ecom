@@ -26,6 +26,6 @@ export const authenticateAdmin = (req, res, next) => {
       res.status(403).json({ success: false, message: 'Access forbidden: Admins only' });
     }
   } else {
-    return res.redirect('/admin/login');
+    return res.redirect('/admin/login/');
   }
 };

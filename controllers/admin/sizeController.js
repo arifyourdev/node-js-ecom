@@ -5,7 +5,7 @@ import { disAllSizes } from "../../services/admin/sizeServices.js";
 export const displaySize = async (req,res) =>{
     try{
       const sizeData = await disAllSizes();
-      res.render('admin/size-list',{sizeData:sizeData})
+      res.render('admin/size-list',{sizeData:sizeData});
     }catch(e){
         console.log(e)
     }
@@ -13,18 +13,18 @@ export const displaySize = async (req,res) =>{
 
 export const addSize = async (req, res) => {
   try {
-    const { size_name, quantity, status } = req.body;
+    const { size_name, status } = req.body;
     
-    console.log('Received data:', size_name, quantity, status);  // Log the input values
+    console.log('Received data:', size_name, status);  // Log the input values
     
     // Check if any of the values are undefined or null
-    if (size_name === undefined || quantity === undefined || status === undefined) {
+    if (size_name === undefined || status === undefined) {
       return res.status(400).send('Missing required fields');
     }
 
     await connect.execute(
-      "INSERT INTO size (size_name, quantity, status, created_at) VALUES (?, ?, ?, NOW())",
-      [size_name, quantity, status]
+      "INSERT INTO size (size_name, status, created_at) VALUES (?, ?, ?, NOW())",
+      [size_name, status]
     );
     
     res.redirect('/admin/size-list');
@@ -33,3 +33,43 @@ export const addSize = async (req, res) => {
     res.status(500).send('Error inserting data');
   }
 };
+
+export const editSize = async (req,res) =>{
+  try{
+     const {id} = req.params;
+     const [editSize] = await connect.execute("Select * from size Where id = ?",[id])
+     res.render('admin/edit-size' ,{editSize:editSize[0]})
+  }catch(e){
+    console.log(e)
+  }
+}
+
+export const updateSize = async (req, res) => {
+  try {
+    const { id, size_name } = req.body;
+    console.log('Received data:', { id, size_name })
+    await connect.execute('UPDATE size SET size_name = ? WHERE id = ?', [size_name, id]);
+    res.redirect('/admin/size-list');
+  } catch (e) {
+    console.error('Error updating size:', e);
+    res.status(500).send('An error occurred while updating the size.');
+  }
+};
+ 
+export const deleteSize = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete the size entry from the database
+    const [result] = await connect.execute("DELETE FROM size WHERE id = ?", [id]);
+
+    if (result.affectedRows === 0) {
+        return res.status(404).send("Size not found.");
+    }
+
+    res.status(200).send("Size deleted successfully.");
+} catch (error) {
+    console.error(error);
+    res.status(500).send("Error deleting size.");
+}
+}

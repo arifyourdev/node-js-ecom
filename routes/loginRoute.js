@@ -2,11 +2,13 @@ import express from "express";
 import { signUp ,loginUser, requesOtp, logOut,verifyOtp ,updatePassword ,verifyOtpAndRegister, disProfile, updateProfile } from "../controllers/loginController.js";
 import { getAllCategory } from "../services/admin/catService.js";
 import { ensureAuthenticated } from "../middleware/authMiddleware.js";
+import { disAllType } from "../services/admin/typeService.js";
 const router = express.Router();
 
 router.get('/signup', async(req,res) =>{
     const catData = await getAllCategory();
-    res.render('signup',{catData})
+    const typeData = await disAllType();
+    res.render('signup',{catData,typeData})
 })
 router.post('/signup', signUp)
 router.get('/ac-verification',(req,res) =>{
@@ -17,8 +19,9 @@ router.post('/ac-verification',verifyOtpAndRegister)
 router.get('/login', async(req,res) =>{
     // const previousUrl = req.headers.referer || '/'; 
     // req.session.redirectTo = previousUrl; 
+    const typeData = await disAllType();
     const catData = await getAllCategory();
-    res.render('login',{catData})
+    res.render('login',{catData,typeData})
 })
 router.get('/forget-password',(req,res)=>{
     res.render('forget-password')

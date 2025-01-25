@@ -11,7 +11,7 @@ export const disCategory = async (req,res) =>{
 }
 
 export const addCategory = async (req,res) =>{
-    const {cat_name,cat_slug, is_accessories,status} = req.body;
+    const {wear_type_id,cat_name,cat_slug, is_accessories,status} = req.body;
     try {
         const [existingCategory] = await connect.execute(
             "SELECT COUNT(*) AS count FROM category WHERE cat_slug = ?",
@@ -19,12 +19,12 @@ export const addCategory = async (req,res) =>{
         );
     
         if (existingCategory[0].count > 0) {
-            return res.ren(400).send("Category slug already exists.");
+            return res.status(400).send("Category slug already exists.");
         }
     
         await connect.execute(
-            "INSERT INTO category (cat_name, cat_slug, is_accessories, status, created_at) VALUES (?, ?, ?, ?, NOW())",
-            [cat_name, cat_slug, is_accessories, status]
+            "INSERT INTO category (wear_type_id, cat_name, cat_slug, is_accessories, status, created_at) VALUES (?, ?, ?, ?, ?, NOW())",
+            [wear_type_id, cat_name, cat_slug, is_accessories, status]
         );
         res.redirect('/admin/category-list');
     } catch (e) {

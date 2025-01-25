@@ -287,6 +287,9 @@
 }
 
 @media screen and (max-width:767px) {
+    .type-cat-grid{
+        grid-template-columns: auto auto auto;
+    }
     .product-item {
         width: 190px;
     }
@@ -437,7 +440,7 @@
     }
 
     .sidebar-offcanvas {
-        width: 75% !important;
+        width: 95% !important;
     }
 
     .offcanvas-start {

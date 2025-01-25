@@ -20,11 +20,12 @@ import accessoriesRoute from "./routes/accessoriesRoute.js";
 import newsRoute from "./routes/newsRoute.js";
 import flash from 'connect-flash';
 import { authenticateAdmin } from "./middleware/authMiddleware.js";
+import blogRoute from "./routes/blogRoute.js"
 
 const app = express();
 app.use(cors())
 dotenv.config()
-app.locals.baseURL = "http://localhost:8085/"
+app.locals.baseURL = "http://localhost:8090/"
 
 app.use(session({
     secret: process.env.SESSION_KEY,
@@ -58,7 +59,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-
+app.use('/', prodRoute);
 app.use('/', accessoriesRoute);
 app.use('/', commonRoute);
 app.use('/',loginRoute) ;
@@ -66,10 +67,11 @@ app.use('/', cartRoute);
 app.use('/', wishlistRoute);
 app.use('/', paypalRoute);
 app.use("/" , frontOrderRoute);
-app.use("/", newsRoute);
-app.use('/', prodRoute);
+app.use("/",newsRoute);
+app.use('/',blogRoute)
 
- 
+
+
 // Admin Routes
 app.use('/admin/',adminLoginRoute);
 app.use('/admin/',categoryRoute);
@@ -81,8 +83,8 @@ app.use('/admin/', orderRoute);
 app.use('/admin', authenticateAdmin,(req,res) =>{
     res.render('admin/index')
 })
-
-const PORT = 8085
+ 
+const PORT = 8090
 
 app.listen(PORT,() =>{
     console.log(`Server is running on port ${PORT}`)

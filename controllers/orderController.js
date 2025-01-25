@@ -19,6 +19,7 @@ export const generateReturnOrderId = async () => {
 
 export const displayOrderSuccess = async (req, res) => {
     try {
+        const user = req.session.user;
         const query = `
           SELECT 
             o.*,
@@ -28,8 +29,9 @@ export const displayOrderSuccess = async (req, res) => {
           FROM new_order o
           LEFT JOIN alfa_users u ON o.user_id = u.id 
           LEFT JOIN customer_address a ON o.address_id = a.id
+          WHERE u.id = ?
         `;
-        const [orderList] = await connect.execute(query);
+        const [orderList] = await connect.execute(query,[user.id]);
         const catData = await getAllCategory();
         res.render('user-orders', { orderData: orderList ,catData});
     } catch (e) {
@@ -106,15 +108,16 @@ export const displayUserOrders = async (req, res) => {
   export const returnOrder = async (req,res) =>{
     try {
          const {order_id,order_item_id,reason,by_cs, comment} = req.body;
-         console.log(order_id)
+          
          const return_order_id = await generateReturnOrderId();
-         await connect.query(
-            'INSERT INTO return_order (order_id,order_item_id, return_order_id, reason, by_cs, comment,r_status) VALUES (?, ?, ?, ?, ?, ?, ?)',
+         
+         await connect.execute(
+            'INSERT INTO return_order (order_id,order_item_id, return_order_id, reason, by_cs, comment, r_status) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [order_id,order_item_id, return_order_id, reason, by_cs, comment,'PENDING']
         );
-        req.flash('success', 'Request send Successfully!');
+        // req.flash('success', 'Request send Successfully!');
         res.redirect(`/user-order-detail/${order_id}`);
       } catch (error) {
-         res.status(500).json({ message: "An error occurred while cancelling the order." });
+         res.status(500).render({ message: "An error occurred while cancelling the order." });
       }  
 }

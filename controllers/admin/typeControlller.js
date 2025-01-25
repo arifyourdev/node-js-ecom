@@ -10,6 +10,7 @@ export const displayType = async (req,res) =>{
     }
 }
 
+
 export const addType = async(req,res) =>{
   try{
      const {i_type, type_url,status} = req.body;

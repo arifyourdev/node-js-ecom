@@ -1,5 +1,6 @@
 import connect from "../../db/connect.js";
 import { getAllCategory } from "../../services/admin/catService.js"
+import { disAllType } from "../../services/admin/typeService.js";
 import cloudinary from "cloudinary";
 import fs from 'fs';
 
@@ -28,20 +29,20 @@ export const disProduct = async (req, res) => {
 // Add Product
 export const addProduct = async (req, res) => {
     try {
-        const { wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, size, quantity } = req.body;
+        const { wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, similar_product, size, quantity } = req.body;
         
         const mainImage = req.files['p_image'][0]; // Single file
         const additionalImages = req.files['p_images']; // Array of files
 
         const mainImageResult = await cloudinary.v2.uploader.upload(mainImage.path, {
-            folder: 'product-images',
+            folder: 'test-product-images',
         });
         const main_image_path = mainImageResult.secure_url;
 
         // Insert engine data into `engines` table
         const [engineResult] = await connect.execute(
-            "INSERT INTO products (wear_type_id,cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, p_image, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())",
-            [wear_type_id,cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, main_image_path]
+            "INSERT INTO products (wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, similar_product, p_image,position, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 1, NOW())",
+            [wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc, p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, similar_product ,main_image_path]
         );
 
         const product_id = engineResult.insertId;
@@ -50,7 +51,7 @@ export const addProduct = async (req, res) => {
 
         for (const file of additionalImages) {
             const result = await cloudinary.v2.uploader.upload(file.path, {
-                folder: 'product-images',
+                folder: 'test-product-images',
             });
             imageInsertData.push([product_id, result.secure_url]);
             fs.unlink(file.path, (err) => {
@@ -97,9 +98,11 @@ export const editProduct = async (req, res) => {
         const { id } = req.params;
         const [editProduct] = await connect.execute("SELECT * FROM products WHERE id = ?", [id])
         const catData = await getAllCategory();
+        const typeData = await disAllType();
         const [proSize] = await connect.execute("select * from p_size where product_id = ?", [id]);
         const [proImage] = await connect.execute("select * from pro_images where product_id = ?", [id]);
-        res.render('admin/edit-product', { catData, proSize, proImage, editProduct: editProduct[0] })
+        
+        res.render('admin/edit-product', { catData, proSize, proImage, editProduct: editProduct[0] ,typeData })
     } catch (e) {
         console.log(e)
     }
@@ -155,8 +158,8 @@ export const deleteSize = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const {
-            id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
-            p_key_features, tags, brand, sku, colour, new_arrival, best_seller,
+            id, wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
+            p_key_features, tags, brand, sku, barcode, colour, new_arrival, best_seller, similar_product,
             size, quantity
         } = req.body;
 
@@ -190,10 +193,10 @@ export const updateProduct = async (req, res) => {
         }
 
         await connect.execute(
-            "UPDATE products SET cat_id = ?, p_name = ?, p_price = ?, discount = ?, p_main_price = ?, p_url = ?, p_title = ?, p_desc = ?, p_key_features = ?, tags = ?, brand = ?, sku = ?, colour = ?, new_arrival = ?, best_seller = ?, p_image = ? WHERE id = ?",
+            "UPDATE products SET wear_type_id = ?, cat_id = ?, p_name = ?, p_price = ?, discount = ?, p_main_price = ?, p_url = ?, p_title = ?, p_desc = ?, p_key_features = ?, tags = ?, brand = ?, sku = ?, barcode = ?, colour = ?, new_arrival = ?, best_seller = ?, similar_product = ?,  p_image = ? WHERE id = ?",
             [
-                cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
-                p_key_features, tags, brand, sku, colour,  new_arrival, best_seller,
+                wear_type_id, cat_id, p_name, p_price, discount, p_main_price, p_url, p_title, p_desc,
+                p_key_features, tags, brand, sku, barcode, colour,  new_arrival, best_seller,similar_product,
                 main_image_path, id
             ]
         );
@@ -273,8 +276,7 @@ export const updateProduct = async (req, res) => {
                 }
             }
         }
-        
-
+    
         res.redirect('/admin/product-list');
     } catch (e) {
         console.error(e);

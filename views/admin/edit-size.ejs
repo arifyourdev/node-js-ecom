@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfa Menswear | Add Category</title>
+    <title>Alfa Menswear | Edit Size</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <%- include('includes/head') %>
 </head>
@@ -21,24 +21,18 @@
                  <div class="p-5">
                      <div>
                          <div class="">
-                            <h3 class="text-2xl font-bold">Add Type</h3>
+                            <h3 class="text-2xl font-bold">Edit Size</h3>
                          </div>
                          <div class="mt-4">
-                              <form method="post" action="/admin/add-type">
+                              <form method="post" action="/admin/edit-size">
                                 <div class="flex gap-5">
-                                    <div class="sm:w-[30%]">
+                                    <div class="sm:w-[50%]">
                                         <div>
-                                            <label class="font[600]">Type Name</label>
-                                            <input type="text" name="i_type" id="type-name" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" placeholder="Type..." required>
+                                            <label class="font[600]">Size Name</label>
+                                            <input type="text" name="size_name" value="<%= editSize.size_name %>" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" required>
                                         </div>
                                     </div>
-                                    <div class="sm:w-[30%]">
-                                        <div>
-                                            <label class="font[600]">Type Url</label>
-                                            <input type="text" name="type_url" id="type-url" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none" placeholder="Type..." required>
-                                        </div>
-                                    </div>
-                                    <div class="sm:w-[30%]">
+                                    <div class="sm:w-[50%]">
                                         <div>
                                             <label class="font-[600]">Status</label>
                                             <select name="status" class="p-2 border-[1px] rounded-[10px] w-[100%] mt-2 outline-none">
@@ -48,8 +42,9 @@
                                             
                                         </div>
                                     </div>
-                                </div>
-                                   
+                                    <input type="hidden" name="id" value="<%= editSize.id %> ">
+                                 </div>
+                                 
                                  <div class="mt-5">
                                     <button type="submit" class="p-2 bg-sky-400 text-white px-10 rounded-[10px]">Submit</button>
                                 </div>
@@ -59,19 +54,7 @@
                  </div>
             </div>
         </div>
-    </div> 
-    <script>
-        document.getElementById('type-name').addEventListener('input', function() {
-            const productName = this.value;
-            const seoUrl = productName
-                .toLowerCase()
-                .replace(/[^a-z0-9\s]/g, '')
-                .trim()
-                .replace(/\s+/g, '-');
-            document.getElementById('type-url').value = seoUrl;
-        });
-
-    </script>
+    </div>
 </body>
 
 </html>

@@ -173,10 +173,8 @@
                                   <%= product.product_name %>
                                 </h4>
                                 <div class="checkout-rest-cont">
-                                  <!-- <p>Colour :
-                                  </p>
-                                  <p>Size : M
-                                  </p> -->
+                                  <!--  <p>Colour : </p>
+                                        <p>Size : M </p> -->
                                   <p>Qty : <%= product.quantity %>
                                   </p>
                                 </div>
@@ -225,8 +223,8 @@
                               </div>
                               <form action="/return-submit" method="post">
                                 <div class="modal-body">
-                                  <input type="hidden" name="order_item_id" value="<%= product.id %>">
-                                  <input type="hidden" name="orders_id" value="<%= product.orders_id %>">
+                                  <input type="text" name="order_item_id" value="<%= product.id %>">
+                                  <input type="text" name="order_id" value="<%= product.orders_id %>">
                                   <div>
                                     <h2 class="return-m-text">Why are you returning?</h2>
                                     <p class="return-para">Please choose the correct option for return. This information
@@ -298,7 +296,7 @@
                         <li>
                           <div class="alfa-text">Delivery Fee</div>
                           <div class="alfa-price">
-                            <% if (deliveryFee===0) { %>
+                            <% if (deliveryFee === 0) { %>
                               <span id="Delivery-ajax" style="color: rgb(54, 50, 50);">Free Delivery</span>
                               <% } else { %>
                                 <span id="Delivery-ajax"> £<%= deliveryFee.toFixed(2) %></span>
@@ -334,7 +332,7 @@
                                 RETURN ORDER
                               </button>
                            </div> -->
-                    <input type="hidden" name="order_id" id="order_id" value="<%= order.id %>">
+                    <!-- <input type="hidden" name="order_id" id="order_id" value="<%= order.id %>"> -->
                   </div>
                 </div>
               </div>

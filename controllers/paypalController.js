@@ -101,7 +101,7 @@ export const createOrder = async (req, res) => {
                     }
                 ],
                 application_context: {
-                    return_url: process.env.BASE_URL + '/complete-order',
+                    return_url: process.env.BASE_URL + 'complete-order',
                     cancel_url: process.env.BASE_URL + '/cancel-order',
                     shipping_preference: 'NO_SHIPPING',
                     user_action: 'PAY_NOW',
@@ -207,7 +207,7 @@ export const cancelOrder = async (req, res) => {
  export const returnOrder = async (req,res) =>{
     try {
          const {orders_id,order_item_id,reason,by_cs, comment} = req.body;
-         console.log(orders_id)
+    
          const return_order_id = await generateReturnOrderId();
          await connect.query(
             'INSERT INTO return_order (order_item_id, return_order_id, reason, by_cs, comment,r_status) VALUES (?, ?, ?, ?, ?, ?)',
