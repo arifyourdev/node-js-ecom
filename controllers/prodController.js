@@ -3,12 +3,12 @@ import { getAllCategory, getAllTypeCategory } from "../services/admin/catService
 import { getAllProduct } from "../services/admin/prouctService.js"
 import { disAllType } from "../services/admin/typeService.js";
 import { getCartData } from "../services/cartService.js";
+import { disAllColour } from "../services/ColourService.js";
 import { getWishlistData } from "../services/wishlistService.js";
 
 export const disByCategory = async (req, res) => {
     try {
         const { cat_slug } = req.params;
-
         // Fetch all categories with their associated wear types
         const [allCategories] = await connect.execute(`
             SELECT c.*, 
@@ -42,6 +42,8 @@ export const disByCategory = async (req, res) => {
         // Fetch cart and type data
         const { cartData, cartCount } = await getCartData(req);
         const typeData = await disAllType();
+        const {whislistData, wishlistCount} = await getWishlistData(req);
+        const colourData = await disAllColour();
 
         // Render the template with all data
         res.render("collection", {
@@ -51,6 +53,8 @@ export const disByCategory = async (req, res) => {
             typeData,
             catData: allCategories,
             selectedCategory: selectedCategory[0],
+            whislistData, wishlistCount,
+            colourData
         });
     } catch (e) {
         console.error("Error fetching product details:", e);
@@ -65,8 +69,9 @@ export const viewProduct = async (req,res) =>{
        const catData = await getAllCategory();
        const typeData = await disAllType();
        const {cartData,cartCount } = await getCartData(req);
-       const {whislistData, wishlistCount} = await getWishlistData(req)
-       res.render('product', {prodData,cartData,cartCount,typeData,catData,whislistData, wishlistCount});
+       const {whislistData, wishlistCount} = await getWishlistData(req);
+       const colourData = await disAllColour()
+       res.render('product', {prodData,cartData,cartCount,typeData,catData,whislistData, wishlistCount,colourData});
     }catch(e){
         console.log(e)
     }
@@ -78,11 +83,15 @@ export const viewProductDetail = async (req, res) => {
         if (!product_id || !p_seo) {
             return res.status(400).send("Invalid product ID or URL.");
         }
+        // Fetch product details with category name
         const [proDetailData] = await connect.execute(
-            "SELECT * FROM products WHERE id = ? AND p_url = ?", 
+            `SELECT p.*, c.cat_name 
+             FROM products p 
+             LEFT JOIN category c ON p.cat_id = c.id 
+             WHERE p.id = ? AND p.p_url = ?`, 
             [product_id, p_seo]
         );
-      console.log(proDetailData)
+      
       // Fetch best seller products
         const [bestSellerData] = await connect.execute('SELECT * FROM products WHERE best_seller = "yes"');
 
@@ -118,8 +127,9 @@ export const newArrival = async (req,res) =>{
     const {cartData,cartCount } = await getCartData(req);
     const catData = await getAllCategory();
     const typeData = await disAllType();
+    const {whislistData, wishlistCount} = await getWishlistData(req)
     const [newArrivalData] = await connect.execute('Select * from products Where new_arrival = "yes"');
-    res.render('index',{newArrivalData,cartData,cartCount,catData,typeData})
+    res.render('index',{newArrivalData,cartData,cartCount,catData,typeData ,whislistData, wishlistCount})
 }
  
 export const dispTypeWiseProduct = async (req, res) => {
@@ -139,9 +149,11 @@ export const dispTypeWiseProduct = async (req, res) => {
       );
      const catData = await getAllCategory();
      const typeData = await disAllType();
-  
+     const {cartData,cartCount } = await getCartData(req);
+     const {whislistData, wishlistCount} = await getWishlistData(req);
+     const colourData = await disAllColour();
       // Render the view with the fetched products
-      res.render('product-type-list', { prodData ,catData,typeData});
+      res.render('product-type-list', { prodData ,catData,typeData,cartData,cartCount ,whislistData, wishlistCount,colourData});
     } catch (e) {
       console.error(e);
       res.status(500).send('An error occurred while fetching products.');

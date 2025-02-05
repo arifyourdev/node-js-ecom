@@ -53,6 +53,7 @@ export const createOrder = async (req, res) => {
     try {
         const cartItemsInStock = JSON.parse(req.body.cartItemsInStock);
         const selectedAddress = req.body.selectedAddress;
+        console.log(cartItemsInStock)
 
         if (!cartItemsInStock || cartItemsInStock.length === 0) {
             return res.status(400).json({ error: 'Cart data is required'});
@@ -127,9 +128,30 @@ export const createOrder = async (req, res) => {
         // Insert each item into order_items table
         for (const item of cartItemsInStock) {
             await connect.execute(
-                "INSERT INTO new_order_itemsss (orders_id, product_id, quantity) VALUES (?, ?, ?)",
-                [orderId, item.product_id,item.quantity]
+                "INSERT INTO new_order_itemsss (orders_id, product_id, size_id, quantity) VALUES (?, ?, ?, ?)",
+                [orderId, item.product_id, item.product_size, item.quantity]
             );
+        }
+        // Reduce product quantity in p_size table
+        for (const item of cartItemsInStock) {
+            const [rows] = await connect.execute(
+                "SELECT quantity FROM p_size WHERE product_id = ? AND id = ?",
+                [item.product_id, item.product_size]
+            );
+
+            if (rows.length > 0) {
+                const availableStock = rows[0].quantity;
+
+                if (availableStock >= item.quantity) {
+                    await connect.execute(
+                        "UPDATE p_size SET quantity = quantity - ? WHERE product_id = ? AND id = ?",
+                        [item.quantity, item.product_id, item.product_size]
+                    );
+                } else {
+                    console.error(`Stock insufficient for Product ID ${item.product_id}, Size ID ${item.product_size}`);
+                    return res.status(400).json({ error: `Stock insufficient for ${item.product_name}` });
+                }
+            }
         }
 
         res.redirect(approvalLink);
@@ -204,6 +226,8 @@ export const cancelOrder = async (req, res) => {
     }
   };
   
+ 
+
  export const returnOrder = async (req,res) =>{
     try {
          const {orders_id,order_item_id,reason,by_cs, comment} = req.body;

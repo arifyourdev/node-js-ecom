@@ -982,12 +982,14 @@ a {
   top: 12px;
   right: 10px;
 }
-.pro-whishlist a{
-  font-size: 16px;
-  color: var(--primaryColor);
-  position: absolute;
-  top: 10px;
-  right: 15px;
+.pro-whishlist button{
+    font-size: 16px;
+    color: var(--primaryColor);
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: none;
 }
 .pro-whishlist a:hover{
    color: var(--primaryColor);
@@ -1315,7 +1317,7 @@ a {
   opacity: .8;
 }
 .address-form-group input[type=checkbox]{
-  height: 19px;
+    height: 19px;
 	width: 19px;
 }
 .prouduct-checkout input[type=checkbox]:hover ,.address-form-group input[type=checkbox]:hover {
@@ -1323,8 +1325,8 @@ a {
 }
 
 .prouduct-checkout input[type=checkbox]:checked, .address-form-group input[type=checkbox]:checked{
-  background-color: var(--primaryColor);
-  opacity: 1;
+   background-color: var(--primaryColor);
+   opacity: 1;
 }
 .prouduct-checkout input[type=checkbox]:before ,.address-form-group input[type=checkbox]::before {
   content: '';
@@ -1350,9 +1352,18 @@ a {
   margin: 25px auto;
 }
 .product-size-list ul {
-  display: flex;
-  gap: 8px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    justify-content: start;
+    gap: 15px;
 }
+.product-size-list ul li{
+  margin: 0 0 18px;
+}
+.product-size-list.product-size-list2 ul{
+   grid-template-columns: auto auto auto auto auto auto auto;
+   justify-content: start;
+ }
 .product-color-list ul{
     gap: 5px;
     display: flex;
@@ -1492,7 +1503,7 @@ a {
 }
 .new-cart-quantity{
   position: relative;
-  top: -8px;
+  top: -9px;
   width: 100px;
 }
 .product-limit-msg span{
@@ -2304,10 +2315,12 @@ a {
     margin: 10px auto;
     opacity: 0;
     visibility: hidden;
-    top: 18px;
+    top: 52px;
     padding: 0;
     transition: .3s ease;
     z-index: 999;
+    border: 1px solid #eee;
+    border-top: 0;
 }
 .dropdown-menu-wrapper ul{
     display: flex;
@@ -2326,7 +2339,7 @@ a {
     width: 100px;
     display: inline-block;
     height: 30px;
-    padding: 7px 10px 0;
+    padding: 7px 3px 0;
     margin: 0 0 1px;
     text-transform: capitalize;
 }
@@ -3121,7 +3134,7 @@ font-size: 14px;
       height: auto;
       max-height: 350px;
       scroll-behavior: smooth;
-      overflow-x: scroll;
+      overflow-x: hidden;
     }
 
     .dropdown-content a {
@@ -3407,14 +3420,15 @@ li a:hover .open-icon-main {
 }
 .size-popup{
   position: absolute;
-    background: #005d67;
-    color: #fff;
-    font-size: 12px;
-    width: 52px;
-    height: 17px;
-    padding: 0px 0;
-    text-align: center;
-    border-radius: 4px;
-    left: -3px;
-    top: 32px;
+  background: #ffd100;
+  border: 1px solid #005d67;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  top: 40px;
 }

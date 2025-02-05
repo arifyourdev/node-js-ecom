@@ -177,6 +177,8 @@
                                         <p>Size : M </p> -->
                                   <p>Qty : <%= product.quantity %>
                                   </p>
+                                  <p>Qty : <%= product.size_name %>
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -223,8 +225,8 @@
                               </div>
                               <form action="/return-submit" method="post">
                                 <div class="modal-body">
-                                  <input type="text" name="order_item_id" value="<%= product.id %>">
-                                  <input type="text" name="order_id" value="<%= product.orders_id %>">
+                                  <input type="hidden" name="order_item_id" value="<%= product.id %>">
+                                  <input type="hidden" name="orders_id" value="<%= product.orders_id %>">
                                   <div>
                                     <h2 class="return-m-text">Why are you returning?</h2>
                                     <p class="return-para">Please choose the correct option for return. This information
@@ -332,7 +334,7 @@
                                 RETURN ORDER
                               </button>
                            </div> -->
-                    <!-- <input type="hidden" name="order_id" id="order_id" value="<%= order.id %>"> -->
+                    <input type="hidden" name="order_id" id="order_id" value="<%= order.id %>">
                   </div>
                 </div>
               </div>

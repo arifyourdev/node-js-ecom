@@ -3,15 +3,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script src="assets/js/custom.js"></script>
-<script src="assets/js/cart.js"></script>
-<script src="assets/js/whislist.js"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
 <script>
   document.getElementById('searchInput').addEventListener('input', function () {
     const query = this.value;
 
-    if (query.length > 2) { //Only search if query is longer than 2 characters
+    if (query.length > 1) { //Only search if query is longer than 2 characters
       fetch(`/search-products?query=${query}`)
         .then(response => response.json())
         .then(data => {
@@ -37,7 +35,7 @@
             });
             dropdown.classList.add('show');
           } else {
-            dropdown.innerHTML = '<div class="dropdown-item">No Products found</div>'; e
+            dropdown.innerHTML = '<div class="dropdown-item">No Products found</div>'; 
             dropdown.classList.add('show');
           }
         });

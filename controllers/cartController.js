@@ -1,6 +1,8 @@
 import connect from "../db/connect.js";
 import { getAllCategory } from "../services/admin/catService.js";
+import { disAllType } from "../services/admin/typeService.js";
 import { getCartData } from "../services/cartService.js";
+import { getWishlistData } from "../services/wishlistService.js";
 
 export const addToCart = async (req, res) => {
     const productData = req.body;
@@ -9,6 +11,7 @@ export const addToCart = async (req, res) => {
         try {
             const userId = req.session.user.id;
             const { product_id, product_name, product_size, product_price, quantity, product_image } = productData;
+            console.log(product_size)
 
             const [existingProduct] = await connect.execute(
                 'SELECT quantity FROM alfa_cart WHERE user_id = ? AND product_id = ? AND product_size = ?',
@@ -28,6 +31,12 @@ export const addToCart = async (req, res) => {
                     [userId, product_id, product_name, product_size, product_price, quantity, product_image]
                 );
             }
+             // Delete the product from the wishlist after adding it to the cart
+                await connect.execute(
+                    'DELETE FROM alfa_whislist WHERE user_id = ? AND product_id = ? AND product_size = ?',
+                    [userId, product_id, product_size]
+                );
+
 
             res.json({ success: true, message: 'Product added to cart.' });
         } catch (err) {
@@ -217,9 +226,15 @@ export const disCart = async (req, res, next) => {
     try {
         const { cartData, cartCount } = await getCartData(req);
         const catData = await getAllCategory();
+        const typeData = await disAllType();
+        const {whislistData, wishlistCount} = await getWishlistData(req);
+      if(cartData.length === 0){
+             // Redirect to another page if cartItems is empty
+             return res.render('empty-cart-page',{typeData,catData});
+        }
         const sizePromises = cartData.map(async (item) => {
             const [sizesData] = await connect.execute(
-                "SELECT size, quantity FROM p_size WHERE product_id = ?",
+                "SELECT id, size, quantity FROM p_size WHERE product_id = ?",
                 [item.product_id]
             );
             return { product_id: item.product_id, sizes: sizesData };
@@ -230,6 +245,8 @@ export const disCart = async (req, res, next) => {
             map[data.product_id] = data.sizes;
             return map;
         }, {});
+
+        console.log(sizesMap)
 
         // Calculate total price and delivery fee
         const total = cartData.reduce((sum, item) => {
@@ -244,7 +261,10 @@ export const disCart = async (req, res, next) => {
             sizesMap,
             total,
             deliveryFee,
-            catData
+            catData,
+            typeData,
+            whislistData, 
+            wishlistCount
         });
     } catch (err) {
         console.error(err);
@@ -255,8 +275,9 @@ export const disCart = async (req, res, next) => {
 export const addAddress = async (req, res) => {
     try {
         const userId = req.session.user.id
-        const { full_name, mobile, email, address, address_2, city, postcode, address_type } = req.body
-        await connect.execute("INSERT INTO customer_address (user_id, full_name, mobile ,email, address,address_2, city, postcode,address_type,created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())", [userId, full_name, mobile, email, address, address_2, city, postcode, address_type])
+        const { full_name, mobile, email, address, address_2, city, postcode, address_type ,default_address } = req.body;
+        const defaultAddressValue = default_address ? 'yes' : 'no';
+        await connect.execute("INSERT INTO customer_address (user_id, full_name, mobile ,email, address,address_2, city, postcode,address_type,default_address,created_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())", [userId, full_name, mobile, email, address, address_2, city, postcode, address_type,defaultAddressValue])
         res.redirect('/delivery-info')
     } catch (e) {
         console.log(e)
@@ -269,7 +290,9 @@ export const disAddress = async (req, res) => {
         const userId = req.session.user.id;
         const { cartData, cartCount } = await getCartData(req);
         const catData = await getAllCategory();
-        const [cu_address] = await connect.execute("SELECT * FROM customer_address WHERE user_id = ?", [userId]);
+        const typeData = await disAllType();
+        const {whislistData, wishlistCount} = await getWishlistData(req)
+        const [cu_address] = await connect.execute("SELECT * FROM customer_address WHERE user_id = ? order by default_address desc", [userId]);
 
         // Calculate total price and delivery fee
         const total = cartData.reduce((sum, item) => {
@@ -279,10 +302,27 @@ export const disAddress = async (req, res) => {
         const deliveryFee = total < 70 ? 10 : 0;
         const vat = total * 0.2;
 
-        res.render('delivery-info', { cu_address, cartData, cartCount,catData ,total ,deliveryFee,vat})
+        res.render('delivery-info', { cu_address, cartData, typeData, cartCount,catData ,total ,deliveryFee,vat,whislistData, wishlistCount})
 
     } catch (e) {
         console.log(e)
         res.render('delivery-info', { cartData: [], cartCount: 0 });
+    }
+}
+
+// Update Address
+export const updateAddress = async (req, res) =>{
+    try {
+
+        const { address_id, full_name, mobile, email, address, address_2, city, postcode, address_type ,default_address } = req.body;
+        const defaultAddressValue = default_address ? 'yes' : 'no';
+        await connect.execute(
+            "UPDATE customer_address SET full_name = ?, mobile = ?, email = ?, address = ?, address_2 = ?, city = ?, postcode = ?, address_type = ?, default_address = ? WHERE id = ?",
+            [full_name, mobile, email, address, address_2, city, postcode, address_type, defaultAddressValue, address_id]
+        );
+        res.redirect('/delivery-info')
+    }catch(e) {
+        console.log(e)
+        res.render('delivery-info', { message: "Something wrong in query" })
     }
 }
